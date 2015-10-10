@@ -2,11 +2,14 @@
 #define GUI_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include <QApplication>
 
-class GUI : public QMainWindow
-{
+class GUI : public QMainWindow {
     Q_OBJECT
-    void createMenus();
+
+private:
+    QPushButton* submitButton;
 
 public:
     GUI(QWidget *parent = 0);

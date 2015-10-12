@@ -13,21 +13,21 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 
 	// Symbol Field
 	symbolLabel = new QLabel("Symbol: ", this);
-	symbolLabel->setGeometry(10, 10, 100, 40);
+	symbolLabel->setGeometry(10, 10, 150, 40);
 	symbolEdit = new QLineEdit(this);
-	symbolEdit->setGeometry(120, 10, 150, 40);
+	symbolEdit->setGeometry(170, 10, 150, 40);
 
 	// Price Field
 	priceLabel = new QLabel("Price: ", this);
-	priceLabel->setGeometry(10, 60, 100, 40);
+	priceLabel->setGeometry(10, 60, 150, 40);
 	priceEdit = new QLineEdit(this);
-	priceEdit->setGeometry(120, 60, 150, 40);
+	priceEdit->setGeometry(170, 60, 150, 40);
 
 	// Qty Field
 	qtyLabel = new QLabel("Quantity: ", this);
-	qtyLabel->setGeometry(10, 110, 100, 40);
+	qtyLabel->setGeometry(10, 110, 150, 40);
 	qtyEdit = new QLineEdit(this);
-	qtyEdit->setGeometry(120, 110, 150, 40);
+	qtyEdit->setGeometry(170, 110, 150, 40);
 
 	// Create and position submit button
 	submitButton = new QPushButton("Submit", this);

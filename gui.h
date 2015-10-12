@@ -14,6 +14,7 @@ private:
 public:
     GUI(QWidget *parent = 0);
     ~GUI();
+    
 };
 
 #endif // GUI_H

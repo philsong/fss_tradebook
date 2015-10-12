@@ -1,13 +1,17 @@
 #include "gui.h"
-#include "database.h"
+#include "trade.h"
 
-int main(int argc, char *argv[])
-{	
-	Database db("tradeBookDB", 5432);
+int main(int argc, char *argv[]) {
 
-    QApplication app(argc, argv);
-    GUI w;
-    w.show();
+	// Create Qt Application object
+	QApplication app(argc, argv);
 
-    return app.exec();
+	// Create Trade Book
+	TradeBook book("tradeBookDB", 5432);
+
+	// Create GUI and connect it to tradebook
+	GUI interface;
+	interface.show();
+
+	return app.exec();
 }

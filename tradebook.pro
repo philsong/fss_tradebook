@@ -18,6 +18,8 @@ QMAKE_CLEAN += ${TARGET} Makefile
 SOURCES += main.cpp\
 	       gui.cpp\
 	       database.cpp\
+	       trade.cpp
 
 HEADERS  += gui.h\
 			database.h\
+			trade.h

@@ -14,7 +14,7 @@ Trade::~Trade() {}
 string Trade::toSQL() {
 	ostringstream sql;
 	sql << "VALUES (" 
-		<< "'" << symbol << "' , "
+		<< "'" << symbol << "', "
 		<< quantity << ", "
 		<< price 
 		<< ");";

@@ -6,22 +6,29 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
+#include "tradebook.h"
 
 class GUI : public QMainWindow {
     Q_OBJECT
 
 private slots:
-	void submitButtonClicked();
+	void slotSubmission();
 
 private:
+	// GUI Elements
     QPushButton* submitButton;
     QLabel* symbolLabel;
     QLineEdit* symbolEdit;
     QLabel* priceLabel;
     QLineEdit* priceEdit;
+    QLabel* qtyLabel;
+    QLineEdit* qtyEdit;
+
+    // Link to TradeBook
+    TradeBook* book;
 
 public:
-    GUI(QWidget *parent = 0);
+    GUI(QWidget *parent, TradeBook * tb);
     ~GUI();
     
 };

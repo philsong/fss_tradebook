@@ -41,6 +41,7 @@ void Database::insert(Trade data) {
 	string query = query_stream.str();
 
 	// Reminder: try / catch
+	cout << query << "\n";
 
 	// Create postgreSQL transactional object
 	work transaction(*db_connection); 

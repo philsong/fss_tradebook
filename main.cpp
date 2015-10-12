@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 	TradeBook book("tradeBookDB", 5432);
 
 	// Create GUI and connect it to tradebook
-	GUI interface;
+	GUI interface(0, &book);
 	interface.show();
 
 	return app.exec();

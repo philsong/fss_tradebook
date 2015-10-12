@@ -1,8 +1,9 @@
 #ifndef TRADEBOOK_H
 #define TRADEBOOK_H
 
-#include "database.h"
 #include <string>
+#include "database.h"
+#include "trade.h"
 
 using namespace std;
 
@@ -13,6 +14,8 @@ private:
 public:
 	TradeBook(string db_name, int db_port);
 	~TradeBook();
+	void record_trade(string symbol, int qty, double price);
+
 };
 
 #endif // TRADEBOOK_H

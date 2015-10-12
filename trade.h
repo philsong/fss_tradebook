@@ -1,18 +1,20 @@
 #ifndef TRADE_H
 #define TRADE_H
 
-#include "database.h"
 #include <string>
 
 using namespace std;
 
-class TradeBook {
+class Trade {
 private:
-	Database db;
+	string symbol;
+	int quantity;
+	double price;
 
 public:
-	TradeBook(string db_name, int db_port);
-	~TradeBook();
+	Trade(string _symbol, int _quantity, double _price);
+	~Trade();
+	string toSQL();
 };
 
 #endif // TRADE_H

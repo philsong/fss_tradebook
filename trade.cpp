@@ -1,7 +1,23 @@
 #include "trade.h"
 
+#include <string>
+#include <sstream>
+#include <iostream>
+
 using namespace std;
 
-TradeBook::TradeBook(string db_name, int db_port) : db {db_name, db_port} {}
+Trade::Trade(string _symbol, int _quantity, double _price) : 
+symbol {_symbol}, quantity {_quantity}, price {_price} { }
 
-TradeBook::~TradeBook() {}
+Trade::~Trade() {}
+
+string Trade::toSQL() {
+	ostringstream sql;
+	sql << "VALUES (" 
+		<< "'" << symbol << "' , "
+		<< quantity << ", "
+		<< price 
+		<< ");";
+
+	return sql.str();
+}

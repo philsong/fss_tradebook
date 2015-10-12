@@ -2,6 +2,7 @@
 #define DATABASE_H
 
 #include <pqxx/pqxx>
+#include "trade.h"
 
 using namespace std;
 using namespace pqxx;
@@ -12,6 +13,7 @@ private:
 public:
 	Database(string db_name, int port);
 	~Database();
+	void insert(Trade data);
 };
 
 #endif // DATABASE_H

@@ -1,5 +1,5 @@
 #include "gui.h"
-#include "trade.h"
+#include "tradebook.h"
 
 int main(int argc, char *argv[]) {
 

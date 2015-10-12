@@ -32,3 +32,21 @@ Database::~Database() {
 	db_connection->disconnect();
 	delete db_connection;
 }
+
+void Database::insert(Trade data) {
+	// Format SQL insert query
+	ostringstream query_stream;
+	query_stream << "INSERT INTO Trades(symbol, qt_lots, price) "
+				 << data.toSQL();
+	string query = query_stream.str();
+
+	// Reminder: try / catch
+
+	// Create postgreSQL transactional object
+	work transaction(*db_connection); 
+
+	// Execute query
+	transaction.exec(query);
+	transaction.commit();
+	cout << "Record created.\n";
+}

@@ -10,6 +10,7 @@
 #include <QMenuBar>
 #include <QFileDialog>
 #include <QRadioButton>
+#include <QDateTimeEdit>
 
 #include <memory>
 
@@ -39,6 +40,9 @@ private:
 
     QRadioButton * buyButton;
     QRadioButton * sellButton;
+
+    QLabel * expLabel;
+    QDateEdit * expDate;
 
     // Link to TradeBook
     TradeBook* book;

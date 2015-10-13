@@ -44,6 +44,14 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	sellButton = new QRadioButton("Sell", this);
 	sellButton->setGeometry(170, 190, 150, 40);
 
+	// Expiration date field
+	expLabel = new QLabel("Contract expiry: ", this);
+	expLabel->setGeometry(10, 240, 300, 40);
+	expDate = new QDateEdit(this);
+	expDate->setGeometry(10, 290, 300, 40);
+	expDate->setDisplayFormat("dd/MM/yyyy");
+	//TODO: connect date edit
+
 	// Create and position submit button
 	submitButton = new QPushButton("Submit", this);
 	submitButton->setGeometry(490, 350, 100, 40);

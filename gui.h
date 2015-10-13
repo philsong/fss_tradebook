@@ -6,6 +6,12 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
+#include <QAction>
+#include <QMenuBar>
+#include <QFileDialog>
+
+#include <memory>
+
 #include "tradebook.h"
 
 class GUI : public QMainWindow {
@@ -13,9 +19,12 @@ class GUI : public QMainWindow {
 
 private slots:
 	void slotSubmission();
+    void slotDownload();
 
 private:
 	// GUI Elements
+    QAction* downloadAct;
+    QMenu* fileMenu;
     QPushButton* submitButton;
     QLabel* symbolLabel;
     QLineEdit* symbolEdit;

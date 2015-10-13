@@ -9,6 +9,7 @@
 #include <QAction>
 #include <QMenuBar>
 #include <QFileDialog>
+#include <QRadioButton>
 
 #include <memory>
 
@@ -23,21 +24,27 @@ private slots:
 
 private:
 	// GUI Elements
-    QAction* downloadAct;
-    QMenu* fileMenu;
-    QPushButton* submitButton;
-    QLabel* symbolLabel;
-    QLineEdit* symbolEdit;
-    QLabel* priceLabel;
-    QLineEdit* priceEdit;
-    QLabel* qtyLabel;
-    QLineEdit* qtyEdit;
+    QAction * downloadAct;
+    QMenu * fileMenu;
+    QPushButton * submitButton;
+
+    QLabel * symbolLabel;
+    QLineEdit * symbolEdit;
+
+    QLabel * priceLabel;
+    QLineEdit * priceEdit;
+
+    QLabel * qtyLabel;
+    QLineEdit * qtyEdit;
+
+    QRadioButton * buyButton;
+    QRadioButton * sellButton;
 
     // Link to TradeBook
     TradeBook* book;
 
 public:
-    GUI(QWidget *parent, TradeBook * tb);
+    GUI(QWidget * parent, TradeBook * tb);
     ~GUI();
     
 };

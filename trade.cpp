@@ -6,8 +6,12 @@
 
 using namespace std;
 
-Trade::Trade(string _symbol, int _quantity, double _price) : 
-symbol {_symbol}, quantity {_quantity}, price {_price} { }
+Trade::Trade(string _symbol, int _quantity, double _price, bool _buy) : 
+	symbol {_symbol}, 
+	quantity {_quantity}, 
+	price {_price}, 
+	buy {_buy} {
+}
 
 Trade::~Trade() {}
 
@@ -16,7 +20,8 @@ string Trade::toSQL() {
 	sql << "VALUES (" 
 		<< "'" << symbol << "', "
 		<< quantity << ", "
-		<< price 
+		<< price << ", "
+		<< (buy ? "'true'" : "'false'") 
 		<< ");";
 
 	return sql.str();
@@ -26,7 +31,9 @@ string Trade::toCSV() {
 	ostringstream csv;
 	csv << symbol << ", "
 		<< quantity << ", "
-		<< price << "\n";
+		<< price << ", "
+		<< (buy ? "BUY" : "SELL")
+		<< "\n";
 
 	return csv.str();
 }	

@@ -37,6 +37,13 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	qtyEdit = new QLineEdit(this);
 	qtyEdit->setGeometry(170, 140, 150, 40);
 
+	// Create and position buy / sell buttons
+	buyButton = new QRadioButton("Buy", this);
+	buyButton->setGeometry(10, 190, 150, 40);
+	buyButton->setChecked(true);
+	sellButton = new QRadioButton("Sell", this);
+	sellButton->setGeometry(170, 190, 150, 40);
+
 	// Create and position submit button
 	submitButton = new QPushButton("Submit", this);
 	submitButton->setGeometry(490, 350, 100, 40);
@@ -58,19 +65,30 @@ GUI::~GUI() {
 }
 
 void GUI::slotSubmission() {
+	// Text fields
 	string symbol = symbolEdit->text().toStdString();
 	string price_string = priceEdit->text().toStdString();
 	string qty_string = qtyEdit->text().toStdString();
 
+	// Radio buttons
+	bool buy = buyButton->isChecked();
+	bool sell = sellButton->isChecked();
+	if (buy) cout << "But buy is true tho...\n";
+	if (sell) cout << "even sell is true...\n";
+	if (!(buy || sell)) {
+		// emit must pick buy or sell signal
+		cerr << "Must pick one of buy or sell\n";
+		return;
+	}
+
 	try {
 		double price = stod(price_string);
 		int qty = stoi(qty_string);
-		book->record_trade(symbol, qty, price);
+		book->record_trade(symbol, qty, price, buy);
 	} catch (const invalid_argument &ia) {
 		// emit invalid argument signal
 		cerr << "Invalid argument: " << ia.what() << "\n";
 	}
-
 }
 
 void GUI::slotDownload() {

@@ -14,7 +14,7 @@ private:
 public:
 	TradeBook(string db_name, int db_port);
 	~TradeBook();
-	void record_trade(string symbol, int qty, double price);
+	void record_trade(string symbol, int qty, double price, bool buy);
 	void download_csv(string file_target);
 
 };

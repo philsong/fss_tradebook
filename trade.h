@@ -10,9 +10,10 @@ private:
 	string symbol;
 	int quantity;
 	double price;
+	bool buy;
 
 public:
-	Trade(string _symbol, int _quantity, double _price);
+	Trade(string _symbol, int _quantity, double _price, bool _buy);
 	~Trade();
 	string toSQL();
 	string toCSV();

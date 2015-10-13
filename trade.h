@@ -15,6 +15,7 @@ public:
 	Trade(string _symbol, int _quantity, double _price);
 	~Trade();
 	string toSQL();
+	string toCSV();
 };
 
 #endif // TRADE_H

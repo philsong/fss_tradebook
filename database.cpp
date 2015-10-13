@@ -43,11 +43,31 @@ void Database::insert(Trade data) {
 	// Reminder: try / catch
 	cout << query << "\n";
 
-	// Create postgreSQL transactional object
+	// Create postgreSQL transaction object
 	work transaction(*db_connection); 
 
 	// Execute query
 	transaction.exec(query);
 	transaction.commit();
 	cout << "Record created.\n";
+}
+
+vector<Trade> Database::get_all() {
+	// Format SQL select query
+	string query("SELECT * FROM Trades;");
+
+	// Create postgreSQL nontransaction object
+	nontransaction ntransaction(*db_connection);
+
+	// Execute query
+	result db_trades(ntransaction.exec(query));
+
+
+	vector<Trade> trades {};
+	for (auto trade = db_trades.begin(); trade != db_trades.end(); ++trade) {
+		Trade temp(trade[0].as<string>(), trade[1].as<int>(), trade[2].as<double>());
+		trades.push_back(temp);
+	}
+
+	return trades;
 }

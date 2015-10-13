@@ -1,3 +1,5 @@
+#include <fstream>
+#include <iostream>
 #include "tradebook.h"
 
 using namespace std;
@@ -9,4 +11,14 @@ TradeBook::~TradeBook() {}
 void TradeBook::record_trade(string symbol, int qty, double price) {
 	Trade temp(symbol, qty, price);
 	db.insert(temp);
+}
+
+void TradeBook::download_csv(string file_target) {
+	vector<Trade> trades = db.get_all();
+	ofstream ofs(file_target);
+	if (!ofs) {
+		cerr << "couldn't open " << file_target << " for writing.\n";
+	} else {
+		for (auto& t : trades) ofs << t.toCSV();
+	}
 }

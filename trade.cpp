@@ -21,3 +21,12 @@ string Trade::toSQL() {
 
 	return sql.str();
 }
+
+string Trade::toCSV() {
+	ostringstream csv;
+	csv << symbol << ", "
+		<< quantity << ", "
+		<< price << "\n";
+
+	return csv.str();
+}	

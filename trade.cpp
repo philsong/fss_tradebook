@@ -44,3 +44,41 @@ string Trade::toCSV() {
 
 	return csv.str();
 }	
+
+Aggregate::Aggregate(string _symbol, int _quantity, bool _buy, string _trader) :
+	symbol {_symbol},
+	quantity {_quantity},
+	buy {_buy},
+	trader_id {_trader} {
+}
+
+Aggregate::~Aggregate();
+
+string Aggregate::toCSV() {
+	ostringstream csv;
+	csv << symbol << ", "
+		<< quantity << ", "
+		<< (buy ? "BUY, " : "SELL, ")
+		<< trader_id
+		<< "\n";
+
+	return csv.str();
+}
+
+void Aggregate::add_position(int _qty, bool _buy) {
+
+}
+
+static void Aggregate::account_trade(vector<Aggregate>& v, string _symbol, string _trader, int _qty, bool _buy) {
+	// check if (symbol, trader) is alread in container
+	for (auto& p : v) {
+		// (symbol, trader) found
+		if (_symbol.compare(p.symbol) == 0 && _trader.compare(p.trader_id) == 0) {
+			p.add_position(_qty, _buy);
+			goto inserted;
+		}
+	}
+
+	v.push_back(new Aggregate(_symbol, _trader, _qty, _buy));
+	inserted:
+}

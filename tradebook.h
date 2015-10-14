@@ -16,7 +16,7 @@ public:
 	~TradeBook();
 	void record_trade(Trade & data);
 	void download_csv(string file_target);
-
+	void download_aggregate_csv(string file_target);
 };
 
 #endif // TRADEBOOK_H

@@ -81,3 +81,24 @@ vector<Trade> Database::get_all() {
 
 	return trades;
 }
+
+vector<Aggregate> Database::get_aggregates() {
+	// Format SQL select query
+	string query("SELECT symbol, qt_lots, buy, trader_id FROM Trades;");
+
+	// Create postgreSQL nontransaction object
+	nontransaction ntransaction(*db_connection);
+
+	// Execute query
+	result db_trades(ntransaction.exec(query));
+
+	vector<Aggregate> trades {};
+	for (auto trade = db_trades.begin(); trade != db_trades.end(); ++trade) {
+		int    qty       = trade[1].as<int>();
+		string symbol    = trade[0].as<string>();
+		string trader_id = trade[6].as<string>();
+		Aggregate::account_trade(trades, symbol, trader_id, qty);
+	}
+
+	return trades;
+}

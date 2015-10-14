@@ -15,6 +15,7 @@ public:
 	~Database();
 	void insert(Trade & data);
 	vector<Trade> get_all();
+	vector<Aggregate> get_aggregates();
 };
 
 #endif // DATABASE_H

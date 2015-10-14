@@ -21,3 +21,13 @@ void TradeBook::download_csv(string file_target) {
 		for (auto& t : trades) ofs << t.toCSV();
 	}
 }
+
+void TradeBook::download_aggregate_csv(string file_target) {
+	vector<Aggregate> traders = db.get_aggregates();
+	ofstream ofs(file_target);
+	if (!ofs) {
+		cerr << "couldn't open " << file_target << " for writing.\n";
+	} else {
+		for (auto& a : traders) ofs << a.toCSV();
+	}
+}

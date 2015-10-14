@@ -23,4 +23,22 @@ public:
 	string toCSV();
 };
 
+class Aggregate {
+private:
+	struct Position {
+		int quantity;
+		bool buy;
+	};
+
+	string trader_id;
+	string symbol;
+	vector<Position> positions;
+
+public:
+	Aggregate(string symbol, int quantity, bool buy, string trader_id);
+	~Aggregate();
+	string toCSV();
+	static void account_trade(vector<Aggregate>& v, string symbol, string trader_id, int qty, bool buy);
+}
+
 #endif // TRADE_H

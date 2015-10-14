@@ -58,14 +58,14 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	expLabel->setGeometry(10, 290, 580, 40);
 	expDate = new QDateEdit(this);
 	expDate->setGeometry(10, 340, 580, 40);
-	expDate->setDisplayFormat("dd/MM/yyyy");
+	expDate->setDisplayFormat("MM/dd/yyyy");
 
 	// Transaction time and date
 	transactionLabel = new QLabel("Transaction time: ", this);
 	transactionLabel->setGeometry(10, 390, 580, 40);
 	transactionDateTime = new QDateTimeEdit(this);
 	transactionDateTime->setGeometry(10, 440, 580, 40);
-	transactionDateTime->setDisplayFormat("dd/MM/yyyy HH:mm:ss");
+	transactionDateTime->setDisplayFormat("MM/dd/yyyy HH:mm:ss");
 
 	// Create and position submit button
 	submitButton = new QPushButton("Submit", this);

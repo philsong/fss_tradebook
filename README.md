@@ -9,6 +9,8 @@ Trade Book is a simple book of records system for commodity futures trades.
 + **libpqxx** - Database client library for C++  
   Available in package manager or [here](http://pqxx.org/download/software/libpqxx/)
 + **Qt 4** or higher version
++ **Doxygen**  
+  For documentation generation. Available in package manager or [here](http://www.stack.nl/~dimitri/doxygen/download.html)
 
 ## Building
 

@@ -15,13 +15,16 @@ CONFIG += c++11
 LIBS += -lpqxx -lpq
 QMAKE_CLEAN += ${TARGET} Makefile 
 
-SOURCES += main.cpp\
-	       gui.cpp\
-	       trade.cpp\
-	       database.cpp\
-	       tradebook.cpp
+OBJECTS_DIR = generated_files
+MOC_DIR = generated_files
 
-HEADERS  += gui.h\
-			trade.h\
-			database.h\
-			tradebook.h
+SOURCES += src/main.cpp\
+	       src/gui.cpp\
+	       src/trade.cpp\
+	       src/database.cpp\
+	       src/tradebook.cpp
+
+HEADERS  += src/gui.h\
+			src/trade.h\
+			src/database.h\
+			src/tradebook.h

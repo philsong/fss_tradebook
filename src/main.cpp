@@ -1,3 +1,9 @@
+/** 
+ * \mainpage FSS TradeBook: 
+ * \par Trade Book is a simple book of records system for commodity futures trades.
+ * <a href="https://github.com/thePhilGuy/fss_tradebook">GitHub repository</a>
+ */
+
 #include "gui.h"
 #include "tradebook.h"
 

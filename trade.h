@@ -2,6 +2,7 @@
 #define TRADE_H
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -30,15 +31,16 @@ private:
 		bool buy;
 	};
 
-	string trader_id;
 	string symbol;
+	string trader_id;
 	vector<Position> positions;
 
 public:
-	Aggregate(string symbol, int quantity, bool buy, string trader_id);
+	Aggregate(string symbol, string trader_id, int quantity, bool buy);
 	~Aggregate();
 	string toCSV();
 	static void account_trade(vector<Aggregate>& v, string symbol, string trader_id, int qty, bool buy);
-}
+	void add_position(int quantity, bool buy);
+};
 
 #endif // TRADE_H

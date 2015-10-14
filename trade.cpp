@@ -45,20 +45,24 @@ string Trade::toCSV() {
 	return csv.str();
 }	
 
-Aggregate::Aggregate(string _symbol, int _quantity, bool _buy, string _trader) :
-	symbol {_symbol},
-	quantity {_quantity},
-	buy {_buy},
-	trader_id {_trader} {
+Aggregate::Aggregate(string _symbol, string _trader, int _quantity, bool _buy) :
+	symbol {_symbol}, trader_id {_trader}, positions {} {
+		positions.push_back(Position {_quantity, _buy});
 }
 
-Aggregate::~Aggregate();
+Aggregate::~Aggregate() {};
 
 string Aggregate::toCSV() {
+
+	// Calculate aggregate quantity for this (symbol, trader) trade
+	int aggregate_quantity = 0;
+	for (auto &p : positions) {
+		aggregate_quantity += (p.buy ? p.quantity : -1*p.quantity);
+	}
+
 	ostringstream csv;
 	csv << symbol << ", "
-		<< quantity << ", "
-		<< (buy ? "BUY, " : "SELL, ")
+		<< aggregate_quantity << ", "
 		<< trader_id
 		<< "\n";
 
@@ -66,19 +70,18 @@ string Aggregate::toCSV() {
 }
 
 void Aggregate::add_position(int _qty, bool _buy) {
-
+	positions.push_back({_qty, _buy});
 }
 
-static void Aggregate::account_trade(vector<Aggregate>& v, string _symbol, string _trader, int _qty, bool _buy) {
+void Aggregate::account_trade(vector<Aggregate>& v, string _symbol, string _trader, int _qty, bool _buy) {
 	// check if (symbol, trader) is alread in container
 	for (auto& p : v) {
 		// (symbol, trader) found
 		if (_symbol.compare(p.symbol) == 0 && _trader.compare(p.trader_id) == 0) {
 			p.add_position(_qty, _buy);
-			goto inserted;
+			return;
 		}
 	}
 
-	v.push_back(new Aggregate(_symbol, _trader, _qty, _buy));
-	inserted:
+	v.push_back(Aggregate(_symbol, _trader, _qty, _buy));
 }

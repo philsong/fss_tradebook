@@ -8,7 +8,7 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
     book = tb;
 
     // Set size and title of window
-	setFixedSize(600, 400);
+	setFixedSize(600, 700);
 	setWindowTitle("FSS TradeBook");
 
 	// Create and configure menu bar
@@ -23,38 +23,53 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	symbolLabel = new QLabel("Symbol: ", this);
 	symbolLabel->setGeometry(10, 40, 150, 40);
 	symbolEdit = new QLineEdit(this);
-	symbolEdit->setGeometry(170, 40, 150, 40);
+	symbolEdit->setGeometry(170, 40, 410, 40);
 
 	// Price Field
 	priceLabel = new QLabel("Price: ", this);
 	priceLabel->setGeometry(10, 90, 150, 40);
 	priceEdit = new QLineEdit(this);
-	priceEdit->setGeometry(170, 90, 150, 40);
+	priceEdit->setGeometry(170, 90, 410, 40);
 
 	// Qty Field
 	qtyLabel = new QLabel("Quantity: ", this);
 	qtyLabel->setGeometry(10, 140, 150, 40);
 	qtyEdit = new QLineEdit(this);
-	qtyEdit->setGeometry(170, 140, 150, 40);
+	qtyEdit->setGeometry(170, 140, 410, 40);
+
+	// Trader Field
+	traderLabel = new QLabel("Trader id: ", this);
+	traderLabel->setGeometry(10, 190, 150, 40);
+	traderEdit = new QLineEdit(this);
+	traderEdit->setGeometry(170, 190, 410, 40);
+	// TODO: connect trader field
 
 	// Create and position buy / sell buttons
 	buyButton = new QRadioButton("Buy", this);
-	buyButton->setGeometry(10, 190, 150, 40);
+	buyButton->setGeometry(10, 240, 280, 40);
 	buyButton->setChecked(true);
 	sellButton = new QRadioButton("Sell", this);
-	sellButton->setGeometry(170, 190, 150, 40);
+	sellButton->setGeometry(300, 240, 280, 40);
 
 	// Expiration date field
 	expLabel = new QLabel("Contract expiry: ", this);
-	expLabel->setGeometry(10, 240, 300, 40);
+	expLabel->setGeometry(10, 290, 580, 40);
 	expDate = new QDateEdit(this);
-	expDate->setGeometry(10, 290, 300, 40);
+	expDate->setGeometry(10, 340, 580, 40);
 	expDate->setDisplayFormat("dd/MM/yyyy");
 	//TODO: connect date edit
 
+	// Transaction time and date
+	transactionLabel = new QLabel("Transaction time: ", this);
+	transactionLabel->setGeometry(10, 390, 580, 40);
+	transactionDateTime = new QDateTimeEdit(this);
+	transactionDateTime->setGeometry(10, 440, 580, 40);
+	transactionDateTime->setDisplayFormat("dd/MM/yyyy HH:mm:ss");
+	//TODO: connect transactionDateTime
+
 	// Create and position submit button
 	submitButton = new QPushButton("Submit", this);
-	submitButton->setGeometry(490, 350, 100, 40);
+	submitButton->setGeometry(490, 640, 100, 40);
 
 	// Connect submit button
 	connect(submitButton, SIGNAL(clicked()), this, SLOT (slotSubmission()));
@@ -70,6 +85,10 @@ GUI::~GUI() {
 	delete submitButton;
 	delete symbolEdit;
 	delete symbolLabel;
+	delete traderEdit;
+	delete traderLabel;
+	delete transactionDateTime;
+	delete transactionLabel;
 }
 
 void GUI::slotSubmission() {
@@ -81,8 +100,6 @@ void GUI::slotSubmission() {
 	// Radio buttons
 	bool buy = buyButton->isChecked();
 	bool sell = sellButton->isChecked();
-	if (buy) cout << "But buy is true tho...\n";
-	if (sell) cout << "even sell is true...\n";
 	if (!(buy || sell)) {
 		// emit must pick buy or sell signal
 		cerr << "Must pick one of buy or sell\n";

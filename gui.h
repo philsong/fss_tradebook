@@ -38,11 +38,17 @@ private:
     QLabel * qtyLabel;
     QLineEdit * qtyEdit;
 
+    QLabel * traderLabel;
+    QLineEdit * traderEdit;
+
     QRadioButton * buyButton;
     QRadioButton * sellButton;
 
     QLabel * expLabel;
     QDateEdit * expDate;
+
+    QLabel * transactionLabel;
+    QDateTimeEdit * transactionDateTime;
 
     // Link to TradeBook
     TradeBook* book;

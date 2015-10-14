@@ -12,12 +12,15 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	setWindowTitle("FSS TradeBook");
 
 	// Create and configure menu bar
-	downloadAct = new QAction(tr("&Download trades"), this);
 	fileMenu = menuBar()->addMenu(tr("&File"));
+	downloadAct = new QAction(tr("Download &all trades"), this);
+	downloadAggregateAct = new QAction(tr("Download &aggregate positions"), this);
 	fileMenu->addAction(downloadAct);
+	fileMenu->addAction(downloadAggregateAct);
 
-	// Connect download action
+	// Connect download actions
 	connect(downloadAct, SIGNAL(triggered()), this, SLOT (slotDownload()));
+	connect(downloadAggregateAct, SIGNAL(triggered()), this, SLOT (slotAggregateDownload()));
 
 	// Symbol Field
 	symbolLabel = new QLabel("Symbol: ", this);
@@ -74,6 +77,7 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 
 GUI::~GUI() { 
 	delete downloadAct;
+	delete downloadAggregateAct;
 	delete fileMenu;
 	delete priceEdit;
 	delete priceLabel;
@@ -121,7 +125,14 @@ void GUI::slotSubmission() {
 
 void GUI::slotDownload() {
 	string save_file = QFileDialog::getSaveFileName(this,
-		tr("Save as CSV"), "", tr("CSV File (*.csv)")).toStdString();
+		tr("Download All Trades"), "", tr("CSV File (*.csv)")).toStdString();
 
 	book->download_csv(save_file);
+}
+
+void GUI::slotAggregateDownload() {
+	string save_file = QFileDialog::getSaveFileName(this,
+		tr("Download Aggregate Positions"), "", tr("CSV File (*.csv)")).toStdString();
+
+	book->download_aggregate_csv(save_file);	
 }

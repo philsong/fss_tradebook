@@ -22,10 +22,12 @@ class GUI : public QMainWindow {
 private slots:
 	void slotSubmission();
     void slotDownload();
+    void slotAggregateDownload();
 
 private:
 	// GUI Elements
     QAction * downloadAct;
+    QAction * downloadAggregateAct;
     QMenu * fileMenu;
     QPushButton * submitButton;
 

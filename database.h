@@ -13,7 +13,7 @@ private:
 public:
 	Database(string db_name, int port);
 	~Database();
-	void insert(Trade data);
+	void insert(Trade & data);
 	vector<Trade> get_all();
 };
 

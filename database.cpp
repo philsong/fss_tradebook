@@ -33,10 +33,12 @@ Database::~Database() {
 	delete db_connection;
 }
 
-void Database::insert(Trade data) {
+void Database::insert(Trade & data) {
 	// Format SQL insert query
 	ostringstream query_stream;
-	query_stream << "INSERT INTO Trades(symbol, qt_lots, price, buy) "
+	query_stream << "INSERT INTO "
+				 << "Trades(symbol, qt_lots, price, buy, "
+				 <<		   "expiry, transaction_dt, trader_id) "
 				 << data.toSQL();
 	string query = query_stream.str();
 
@@ -69,7 +71,10 @@ vector<Trade> Database::get_all() {
 			trade[0].as<string>(), //Symbol
 			trade[1].as<int>(), //Qty
 			trade[2].as<double>(), //Price
-			trade[3].as<bool>() //Buy
+			trade[3].as<bool>(), //Buy
+			trade[4].as<string>(), //Expiry
+			trade[5].as<string>(), //DateTime
+			trade[6].as<string>() //Trader
 		);
 		trades.push_back(temp);
 	}

@@ -42,7 +42,6 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	traderLabel->setGeometry(10, 190, 150, 40);
 	traderEdit = new QLineEdit(this);
 	traderEdit->setGeometry(170, 190, 410, 40);
-	// TODO: connect trader field
 
 	// Create and position buy / sell buttons
 	buyButton = new QRadioButton("Buy", this);
@@ -57,7 +56,6 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	expDate = new QDateEdit(this);
 	expDate->setGeometry(10, 340, 580, 40);
 	expDate->setDisplayFormat("dd/MM/yyyy");
-	//TODO: connect date edit
 
 	// Transaction time and date
 	transactionLabel = new QLabel("Transaction time: ", this);
@@ -65,7 +63,6 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	transactionDateTime = new QDateTimeEdit(this);
 	transactionDateTime->setGeometry(10, 440, 580, 40);
 	transactionDateTime->setDisplayFormat("dd/MM/yyyy HH:mm:ss");
-	//TODO: connect transactionDateTime
 
 	// Create and position submit button
 	submitButton = new QPushButton("Submit", this);
@@ -96,6 +93,11 @@ void GUI::slotSubmission() {
 	string symbol = symbolEdit->text().toStdString();
 	string price_string = priceEdit->text().toStdString();
 	string qty_string = qtyEdit->text().toStdString();
+	string trader = traderEdit->text().toStdString();
+	string expiry = expDate->date().toString().toStdString();
+	string datetime = transactionDateTime->dateTime().toString().toStdString();
+
+	cout << "Expiry: " << expiry << "\n Datetime: " << datetime << "\n"; 
 
 	// Radio buttons
 	bool buy = buyButton->isChecked();
@@ -109,7 +111,8 @@ void GUI::slotSubmission() {
 	try {
 		double price = stod(price_string);
 		int qty = stoi(qty_string);
-		book->record_trade(symbol, qty, price, buy);
+		Trade tmp(symbol, qty, price, buy, expiry, datetime, trader);
+		book->record_trade(tmp);
 	} catch (const invalid_argument &ia) {
 		// emit invalid argument signal
 		cerr << "Invalid argument: " << ia.what() << "\n";

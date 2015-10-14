@@ -6,11 +6,15 @@
 
 using namespace std;
 
-Trade::Trade(string _symbol, int _quantity, double _price, bool _buy) : 
-	symbol {_symbol}, 
-	quantity {_quantity}, 
+Trade::Trade(string _symbol, int _quantity, double _price, bool _buy, 
+		     string _expiration_date, string _transaction_dt, string _trader) : 
+	buy {_buy},
 	price {_price}, 
-	buy {_buy} {
+	quantity {_quantity}, 
+	expiration_date {_expiration_date},
+	symbol {_symbol}, 
+	trader_id {_trader}, 
+	transaction_datetime {_transaction_dt} {
 }
 
 Trade::~Trade() {}
@@ -21,7 +25,10 @@ string Trade::toSQL() {
 		<< "'" << symbol << "', "
 		<< quantity << ", "
 		<< price << ", "
-		<< (buy ? "'true'" : "'false'") 
+		<< (buy ? "'true', " : "'false', ")
+		<< "'" << expiration_date << "', "
+		<< "'" << transaction_datetime << "', "
+		<< "'" << trader_id << "'" 
 		<< ");";
 
 	return sql.str();

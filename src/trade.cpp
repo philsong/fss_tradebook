@@ -39,7 +39,10 @@ string Trade::toCSV() {
 	csv << symbol << ", "
 		<< quantity << ", "
 		<< price << ", "
-		<< (buy ? "BUY" : "SELL")
+		<< (buy ? "BUY, " : "SELL, ")
+		<< expiration_date << ", "
+		<< transaction_datetime << ", "
+		<< trader_id
 		<< "\n";
 
 	return csv.str();
@@ -63,6 +66,7 @@ string Aggregate::toCSV() {
 	ostringstream csv;
 	csv << symbol << ", "
 		<< aggregate_quantity << ", "
+		<< (aggregate_quantity > 0 ? "BUY, " : "SELL, ")
 		<< trader_id
 		<< "\n";
 

@@ -18,6 +18,7 @@ void TradeBook::download_csv(string file_target) {
 	if (!ofs) {
 		cerr << "couldn't open " << file_target << " for writing.\n";
 	} else {
+		ofs << "Symbol, Lots, Price, Buy/Sell, Contract Expiry, Transaction Date, Trader\n";
 		for (auto& t : trades) ofs << t.toCSV();
 	}
 }
@@ -28,6 +29,7 @@ void TradeBook::download_aggregate_csv(string file_target) {
 	if (!ofs) {
 		cerr << "couldn't open " << file_target << " for writing.\n";
 	} else {
+		ofs << "Symbol, Lots, Buy/Sell, Trader\n";
 		for (auto& a : traders) ofs << a.toCSV();
 	}
 }

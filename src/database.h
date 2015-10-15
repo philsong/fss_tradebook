@@ -18,7 +18,7 @@ using namespace pqxx;
 
 class Database {
 private:
-	connection* db_connection;
+	connection* db_connection; /// 
 public:
 	/// Construct a Database object from a name and port
 	Database(string db_name, int port);

@@ -16,13 +16,13 @@ using namespace std;
  */
 class Trade {
 private:
-	bool buy;
-	double price;
-	int quantity;
-	string expiration_date;
-	string symbol;
-	string trader_id;
-	string transaction_datetime;
+	bool buy; /// true if the trade is a buy, false if a sell
+	double price; /// price of the commodity future at the time of purchase
+	int quantity; /// # of shares bought
+	string expiration_date; /// expiration date of the future
+	string symbol; /// the symbol for the commodity being traded
+	string trader_id; /// a unique ID for a trader
+	string transaction_datetime; /// the time and date when the trade is executed
 
 public:
    /**

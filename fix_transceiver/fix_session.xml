@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<fix8>
+    <session name="DLD1"
+        role="initiator"
+        fix_version="4400"
+        no_chksum="true"
+        active="true"
+        ip="127.0.0.1"
+        port="11001"
+        sender_comp_id="DLD_TEX"
+        target_comp_id="TEX_DLD"
+        default_appl_ver_id="9"
+        session_log="session_log"
+        protocol_log="protocol_log"
+        login_retry_interval="15000"
+        reset_sequence_numbers="false"
+        ignore_logon_sequence_check="false"
+        tcp_recv_buffer="1572864"
+        tcp_send_buffer="1572864"
+        login_retries="100"
+        process_model="pipelined"
+        silent_disconnect="false"
+        permissive_mode="false"
+        connect_timeout="10"
+        server_group="FO_Group0"    /* configure in place of ip and port above for resiliency */
+        persist="file0" />
+  
+    <schedule name="test_schedule0"
+        start_time="10:00:00"
+        end_time="16:00:00"
+        start_day="1"
+        end_day="5"
+        reject_code="7"
+        reject_text="Test system is not accepting any business messages at the moment"
+        utc_offset_mins="!{ now=`date +%z`; echo $(( ($now / 100) * 60 + ($now % 100) )) }" />
+ 
+    <login name="test_login0"
+         start_time="08:29:00"
+         end_time="18:15:00"
+         start_day="1"
+         end_day="5"
+         utc_offset_mins="!{ now=`date +%z`; echo $(( ($now / 100) * 60 + ($now % 100) )) }" />
+  
+    <persist name="file0"
+        type="file" dir="./run"
+        use_session_id="true"
+        rotation="5"
+        db="client" />
+  
+    <persist name="bdb0"
+        type="bdb" dir="./run"
+        db="myfix_client.db" />
+ 
+    <persist name="mem0"
+        type="mem" />
+ 
+    <persist name="memcached0"
+        type="memcached"
+        config_string="--SERVER=192.168.1.122 --SERVER=192.168.1.123 --SERVER=192.168.1.124"
+        db="client" />
+  
+    <log name="session_log"
+        type="session"
+        filename="|/bin/cat"
+        rotation="5"
+        delimiter="[]"
+        levels="info|warn|error|fatal"
+        flags="timestamp|sequence|compress|thread"/>
+ 
+    <log name="protocol_log"
+        type="protocol"
+        filename="./run/myfix_client_protocol.log"
+        rotation="5"
+        flags="sequence|append|direction"/>
+  
+    <server_group name="FO_Group0">    <server name="Host_01" ip="192.168.1.121" port="12345" max_retries="3"/>
+        <server name="Host_02" ip="192.168.1.122" port="12345" max_retries="3" reset_sequence_numbers="Y"/>
+        <server name="Host_03" ip="192.168.1.123" port="12345" max_retries="3" active="false"/>
+        <server name="Host_04" ip="192.168.1.124" port="12345" max_retries="3" reset_sequence_numbers="Y"/>
+        <server name="Host_05" ip="192.168.1.125" port="12345" max_retries="3" reset_sequence_numbers="Y"/>
+        <server name="Host_06" ip="127.0.0.1" port="11001" max_retries="3"/>
+    </server_group>
+     
+    <ssl_context name="ssl1"
+        private_key_file="ssl-cli.pem"
+        verification_mode="none" />
+ 
+   <client_group name="client_Group0">
+      <client name="Goldsteins" target_comp_id="DLD_TEX" ip="192.168.0.37" active="false"/>
+      <client name="Goldsteins" target_comp_id="DLD_TEX" ip="127.0.0.1" />
+   </client_group>
+</fix8>
+
+<fix8>
+    <!-- server -->
+    <session name="fss_test" 
+        role="acceptor"
+        fix_version="4400"
+        active="true"
+        ip="0.0.0.0"
+        port="49950"
+        sender_comp_id="fss_exchange"
+        target_comp_id="fss_tradebook"
+        heartbeat_interval="1000" /* How often to send heartbeats */
+        process_model="pipelined"
+        />
+
+    <!-- client -->
+    <session name="fss_test" 
+        role="initiator"
+        fix_version="4400"
+        active="true"
+        ip="127.0.0.1"
+        port="49950"
+        sender_comp_id="fss_tradebook"
+        target_comp_id="fss_exchange"
+        process_model="pipelined"
+        />
+
+
+
+</fix8>

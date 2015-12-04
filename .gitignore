@@ -1,1 +1,5 @@
 generated_files/*
+Makefile
+*.txt
+doc/html/*
+tradebook

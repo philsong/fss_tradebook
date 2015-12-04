@@ -7,6 +7,10 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
     // Connect GUI to TradeBook
     book = tb;
 
+    // Get list of symbols from Tradebook
+    for (auto& s : tb->get_symbols())
+        symbols.append(s.c_str());
+
     // Set size and title of window
 	setFixedSize(600, 800);
 	setWindowTitle("FSS TradeBook");
@@ -26,11 +30,6 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	symbolLabel = new QLabel("Symbol: ", this);
 	symbolLabel->setGeometry(10, 40, 150, 40);
 	symbolEdit = new QComboBox(this);
-	QStringList symbols;
-	symbols.append("OIL");
-	symbols.append("GOLD");
-	symbols.append("GAS");
-	symbols.append("COLTAN");
 	symbolEdit->addItems(symbols);
 	symbolEdit->setGeometry(170, 40, 410, 40);
 

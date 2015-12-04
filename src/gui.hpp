@@ -79,6 +79,9 @@ private:
     /// Link to TradeBook instance associated with GUI
     TradeBook* book;
 
+    /// List of Symbols available for orders
+    QStringList symbols;
+
 public:
    /**
     * Constructor for the GUI.

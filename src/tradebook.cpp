@@ -21,28 +21,36 @@ void TradeBook::parse_symbol_list(string symbols_file) {
 		for (string inputLine; getline(ifs, inputLine); ) {
 			string inputToken;
 			istringstream lineStream(inputLine);
-			symbol_info commodity_info;
+			symbol_info record;
 			for (int csv_field = 0; getline(lineStream, inputToken, ','); csv_field++) {
 				switch(csv_field) {
 					case 0:
-						commodity_info.symbol = inputToken;
+						record.symbol = inputToken;
 						break;
 					case 1:
-						commodity_info.exchange = inputToken;
+						record.exchange = inputToken;
 						break;
 					case 2:
-						commodity_info.name = inputToken;
+						record.name = inputToken;
 						break;
 					case 3:
-						commodity_info.months = inputToken;
+						record.months = inputToken;
 						break;
 				}
 			}
-
-			commodities.push_back(commodity_info);
+			symbols.push_back(record);
 		}
 	}
 
+}
+
+const list<string> TradeBook::get_symbols() {
+	list<string> result;
+	for (auto& s : symbols) {
+		result.push_back(s.symbol + " - " + s.name);
+	}
+
+	return result;
 }
 
 void TradeBook::record_trade(Trade & data) {

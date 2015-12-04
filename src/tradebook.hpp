@@ -12,6 +12,7 @@
 #define TRADEBOOK_H
 
 #include <string>
+#include <list>
 #include "database.hpp"
 #include "trade.hpp"
 
@@ -33,7 +34,7 @@ private:
   // FixClient fc;
 
 	// List of available symbols
-	vector<symbol_info> commodities;
+	vector<symbol_info> symbols;
 
 	void parse_symbol_list(string symbols_file);
 
@@ -56,6 +57,8 @@ public:
     * \param file_target Name of file to save output.
     */
 	void download_aggregate_csv(string file_target);
+
+	const list<string> get_symbols();
 };
 
 #endif // TRADEBOOK_H

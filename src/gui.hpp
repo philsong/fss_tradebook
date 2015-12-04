@@ -3,7 +3,7 @@
  *
  * \brief Implementation of Graphical User Interface.
  *
- * This class extends Qt's QMainWindow with 
+ * This class extends Qt's QMainWindow with
  * a selection of widgets that implement the
  * trade submission form.
  */
@@ -22,9 +22,12 @@
 #include <QRadioButton>
 #include <QDateTimeEdit>
 
+#include <QComboBox>
+#include <QStringList>
+
 #include <memory>
 
-#include "tradebook.h"
+#include "tradebook.hpp"
 
 class GUI : public QMainWindow {
     Q_OBJECT
@@ -38,6 +41,7 @@ private slots:
     void slotAggregateDownload();
 
 private:
+
 	// GUI Elements
     QAction * downloadAct;
     QAction * downloadAggregateAct;
@@ -45,19 +49,26 @@ private:
     QPushButton * submitButton;
 
     QLabel * symbolLabel;
-    QLineEdit * symbolEdit;
+    QComboBox * symbolEdit;
 
     QLabel * priceLabel;
-    QLineEdit * priceEdit;
+    QLineEdit * priceEdit; // Now defined according to symbol
 
     QLabel * qtyLabel;
     QLineEdit * qtyEdit;
 
     QLabel * traderLabel;
-    QLineEdit * traderEdit;
+    QLineEdit * traderEdit; // ok
+
+    QLabel * tradeTypeLabel;
+    QComboBox * tradeTypeEdit; // QDropDown for market, limit, or pegged
 
     QRadioButton * buyButton;
     QRadioButton * sellButton;
+
+    // Price limit for limit order
+    QLabel * limitLabel;
+    QLineEdit * limitEdit;
 
     QLabel * expLabel;
     QDateEdit * expDate;
@@ -70,14 +81,14 @@ private:
 
 public:
    /**
-    * Constructor for the GUI. 
+    * Constructor for the GUI.
     * Attaches the QMainWindow parent to the QApplication
     * and TradeBook instance.
     * \param tb TradeBook instance attached to the GUI
     */
     GUI(QWidget * parent, TradeBook * tb);
     ~GUI();
-    
+
 };
 
 #endif // GUI_H

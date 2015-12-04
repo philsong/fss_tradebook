@@ -1,4 +1,4 @@
-#include "trade.h"
+#include "trade.hpp"
 
 #include <string>
 #include <sstream>
@@ -6,14 +6,14 @@
 
 using namespace std;
 
-Trade::Trade(string _symbol, int _quantity, double _price, bool _buy, 
-		     string _expiration_date, string _transaction_dt, string _trader) : 
+Trade::Trade(string _symbol, int _quantity, double _price, bool _buy,
+		     string _expiration_date, string _transaction_dt, string _trader) :
 	buy {_buy},
-	price {_price}, 
-	quantity {_quantity}, 
+	price {_price},
+	quantity {_quantity},
 	expiration_date {_expiration_date},
-	symbol {_symbol}, 
-	trader_id {_trader}, 
+	symbol {_symbol},
+	trader_id {_trader},
 	transaction_datetime {_transaction_dt} {
 }
 
@@ -21,14 +21,14 @@ Trade::~Trade() {}
 
 string Trade::toSQL() {
 	ostringstream sql;
-	sql << "VALUES (" 
+	sql << "VALUES ("
 		<< "'" << symbol << "', "
 		<< quantity << ", "
 		<< price << ", "
 		<< (buy ? "'true', " : "'false', ")
 		<< "'" << expiration_date << "', "
 		<< "'" << transaction_datetime << "', "
-		<< "'" << trader_id << "'" 
+		<< "'" << trader_id << "'"
 		<< ");";
 
 	return sql.str();
@@ -46,7 +46,7 @@ string Trade::toCSV() {
 		<< "\n";
 
 	return csv.str();
-}	
+}
 
 Aggregate::Aggregate(string _symbol, string _trader, int _quantity, bool _buy) :
 	symbol {_symbol}, trader_id {_trader}, positions {} {

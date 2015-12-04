@@ -11,14 +11,14 @@
 #define DATABASE_H
 
 #include <pqxx/pqxx>
-#include "trade.h"
+#include "trade.hpp"
 
 using namespace std;
 using namespace pqxx;
 
 class Database {
 private:
-	connection* db_connection; /// 
+	connection* db_connection; ///
 public:
 	/// Construct a Database object from a name and port
 	Database(string db_name, int port);
@@ -33,7 +33,7 @@ public:
 	/// Get all trades in the trade table
 	vector<Trade> get_all();
 
-   /** 
+   /**
     * Get all aggregate positions in the trade table
     * This method accounts for each trade with the same trader and symbol
     * and combines them into an Aggregate object.

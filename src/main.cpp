@@ -4,8 +4,8 @@
  * <a href="https://github.com/thePhilGuy/fss_tradebook">GitHub repository</a>
  */
 
-#include "gui.h"
-#include "tradebook.h"
+#include "gui.hpp"
+#include "tradebook.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -13,8 +13,7 @@ int main(int argc, char *argv[]) {
 	QApplication app(argc, argv);
 
 	// Create Trade Book
-	TradeBook book("tradeBookDB", 5432);
-	book.parse_symbol_list("CMEGroup.csv");
+	TradeBook book("tradeBookDB", 5432, "CMEGroup.csv");
 
 	// Create GUI and connect it to tradebook
 	GUI interface(0, &book);

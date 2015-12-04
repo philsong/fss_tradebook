@@ -12,10 +12,17 @@
 #define TRADEBOOK_H
 
 #include <string>
-#include "database.h"
-#include "trade.h"
+#include "database.hpp"
+#include "trade.hpp"
 
 using namespace std;
+
+struct symbol_info {
+	string symbol;
+	string exchange;
+	string name;
+	string months;
+};
 
 class TradeBook {
 private:
@@ -25,10 +32,14 @@ private:
   /// The FIX Client object which interacts with an exchange
   // FixClient fc;
 
+	// List of available symbols
+	vector<symbol_info> commodities;
+
+	void parse_symbol_list(string symbols_file);
 
 public:
 	/// Constructor for a TradeBook, parameters are for the Database.
-	TradeBook(string db_name, int db_port);
+	TradeBook(string db_name, int db_port, string symbols_file);
 	~TradeBook();
    /**
     * Insert Trade into the Database db
@@ -45,9 +56,6 @@ public:
     * \param file_target Name of file to save output.
     */
 	void download_aggregate_csv(string file_target);
-
-	void parse_symbol_list(string symbols_file);
-	
 };
 
 #endif // TRADEBOOK_H

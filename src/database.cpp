@@ -1,4 +1,4 @@
-#include "database.h"
+#include "database.hpp"
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -10,7 +10,7 @@ Database::Database(string db_name, int port) {
 	// Format the pqxx config string
 	ostringstream config_stream;
 	config_stream << "dbname=" << db_name
-				  << " user=postgres hostaddr=127.0.0.1" 
+				  << " user=postgres hostaddr=127.0.0.1"
 				  << " port=" << port;
 	string config_string = config_stream.str();
 
@@ -46,7 +46,7 @@ void Database::insert(Trade & data) {
 	cout << query << "\n";
 
 	// Create postgreSQL transaction object
-	work transaction(*db_connection); 
+	work transaction(*db_connection);
 
 	// Execute query
 	transaction.exec(query);

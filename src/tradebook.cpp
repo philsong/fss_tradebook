@@ -1,11 +1,13 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "tradebook.h"
+#include "tradebook.hpp"
 
 using namespace std;
 
-TradeBook::TradeBook(string db_name, int db_port) : db {db_name, db_port} {}
+TradeBook::TradeBook(string db_name, int db_port, string symbols_file) : db {db_name, db_port} {
+	parse_symbol_list(symbols_file);
+}
 
 TradeBook::~TradeBook() {}
 
@@ -17,24 +19,30 @@ void TradeBook::parse_symbol_list(string symbols_file) {
 	} else {
 		string inputLine;
 		for (string inputLine; getline(ifs, inputLine); ) {
-			// Each SYMBOL LINE
 			string inputToken;
-			cout << inputLine << '\n';
-			int i = 0;
 			istringstream lineStream(inputLine);
-			while (getline(lineStream, inputToken, ',')) {
-			// Each SYMBOL TOKEN
-				/* new symbol =
-						symbol: 0,
-						exchange: 1,
-						name: 2,
-						months: 3,
-						api_code: 4
-				*/
-				cout << i++ << ": " << inputToken << '\n';
+			symbol_info commodity_info;
+			for (int csv_field = 0; getline(lineStream, inputToken, ','); csv_field++) {
+				switch(csv_field) {
+					case 0:
+						commodity_info.symbol = inputToken;
+						break;
+					case 1:
+						commodity_info.exchange = inputToken;
+						break;
+					case 2:
+						commodity_info.name = inputToken;
+						break;
+					case 3:
+						commodity_info.months = inputToken;
+						break;
+				}
 			}
+
+			commodities.push_back(commodity_info);
 		}
 	}
+
 }
 
 void TradeBook::record_trade(Trade & data) {

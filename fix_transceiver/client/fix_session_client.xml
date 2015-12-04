@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<fix8>
+    <!-- client -->
+    <session name="fss_test" 
+        role="initiator"
+        fix_version="4400"
+        active="true"
+        ip="127.0.0.1"
+        port="49950"
+        sender_comp_id="fss_tradebook"
+        target_comp_id="fss_exchange"
+        process_model="pipelined"
+        />
+</fix8>

@@ -1,5 +1,5 @@
-/** 
- * \mainpage FSS TradeBook 
+/**
+ * \mainpage FSS TradeBook
  * \par Trade Book is a simple book of records system for commodity futures trades.
  * <a href="https://github.com/thePhilGuy/fss_tradebook">GitHub repository</a>
  */
@@ -14,6 +14,7 @@ int main(int argc, char *argv[]) {
 
 	// Create Trade Book
 	TradeBook book("tradeBookDB", 5432);
+	book.parse_symbol_list("CMEGroup.csv");
 
 	// Create GUI and connect it to tradebook
 	GUI interface(0, &book);

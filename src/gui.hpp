@@ -43,10 +43,15 @@ private slots:
 private:
 
 	// GUI Elements
+    QPushButton * submitButton;
+
+    QMenu * fileMenu;
     QAction * downloadAct;
     QAction * downloadAggregateAct;
-    QMenu * fileMenu;
-    QPushButton * submitButton;
+
+    QMenu * settingsMenu;
+
+    QMenu * 
 
     QLabel * symbolLabel;
     QComboBox * symbolEdit;

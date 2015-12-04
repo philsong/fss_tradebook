@@ -21,7 +21,7 @@ void TradeBook::parse_symbol_list(string symbols_file) {
 		for (string inputLine; getline(ifs, inputLine); ) {
 			string inputToken;
 			istringstream lineStream(inputLine);
-			symbol_info record;
+			struct symbol_info record;
 			for (int csv_field = 0; getline(lineStream, inputToken, ','); csv_field++) {
 				switch(csv_field) {
 					case 0:
@@ -44,10 +44,14 @@ void TradeBook::parse_symbol_list(string symbols_file) {
 
 }
 
+const vector<struct symbol_info>& TradeBook::get_futures() {
+	return symbols;
+}
+
 const list<string> TradeBook::get_symbols() {
 	list<string> result;
 	for (auto& s : symbols) {
-		result.push_back(s.symbol + " - " + s.name);
+		result.push_back(s.symbol);
 	}
 
 	return result;

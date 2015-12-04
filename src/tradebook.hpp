@@ -25,6 +25,19 @@ struct symbol_info {
 	string months;
 };
 
+class Contract {
+private:
+	string symbol,
+	string exchange,
+	double currentPrice
+
+public:
+	Contract();
+	~Contract() = 0;
+	static const Contract& request_info(string symbol);
+	double get_last_price();
+}
+
 class TradeBook {
 private:
 	/// The Database controller object which holds the Trades table.
@@ -34,7 +47,7 @@ private:
   // FixClient fc;
 
 	// List of available symbols
-	vector<symbol_info> symbols;
+	vector<struct symbol_info> symbols;
 
 	void parse_symbol_list(string symbols_file);
 
@@ -59,6 +72,8 @@ public:
 	void download_aggregate_csv(string file_target);
 
 	const list<string> get_symbols();
+	const vector<struct symbol_info>& get_futures();
+
 };
 
 #endif // TRADEBOOK_H

@@ -12,20 +12,26 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
         symbols.append(s.c_str());
 
     // Set size and title of window
-	setFixedSize(600, 800);
+	setFixedSize(1000, 800);
 	setWindowTitle("FSS TradeBook");
 
-	// Create and configure menu bar
+    // *** MENU BAR ***
+	// Create and configure file menu
 	fileMenu = menuBar()->addMenu(tr("&File"));
 	downloadAct = new QAction(tr("Download &all trades"), this);
 	downloadAggregateAct = new QAction(tr("Download &aggregate positions"), this);
 	fileMenu->addAction(downloadAct);
 	fileMenu->addAction(downloadAggregateAct);
-
-	// Connect download actions
+    // Connect download actions
 	connect(downloadAct, SIGNAL(triggered()), this, SLOT (slotDownload()));
 	connect(downloadAggregateAct, SIGNAL(triggered()), this, SLOT (slotAggregateDownload()));
 
+    // Create and configure settings menu
+    settingsMenu = menuBar()->addMenu(tr("&Settings"));
+    // importAct = new QAction(tr("Import settings from file..."), this);
+
+
+    // *** NEW ORDER FORM ***
 	// Symbol Field
 	symbolLabel = new QLabel("Symbol: ", this);
 	symbolLabel->setGeometry(10, 40, 150, 40);

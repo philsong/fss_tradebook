@@ -51,7 +51,7 @@ const vector<struct symbol_info>& TradeBook::get_futures() {
 const list<string> TradeBook::get_symbols() {
 	list<string> result;
 	for (auto& s : symbols) {
-		result.push_back(s.symbol);
+		result.push_back(s.symbol + '/' + s.exchange);
 	}
 
 	return result;

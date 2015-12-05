@@ -51,8 +51,6 @@ private:
 
     QMenu * settingsMenu;
 
-    QMenu * 
-
     QLabel * symbolLabel;
     QComboBox * symbolEdit;
 

@@ -8,8 +8,8 @@
  as CSV files.
  */
 
-#ifndef TRADEBOOK_H
-#define TRADEBOOK_H
+#ifndef TRADEBOOK_HPP
+#define TRADEBOOK_HPP
 
 #include <string>
 #include <list>
@@ -24,19 +24,6 @@ struct symbol_info {
 	string name;
 	string months;
 };
-
-class Contract {
-private:
-	string symbol,
-	string exchange,
-	double currentPrice
-
-public:
-	Contract();
-	~Contract() = 0;
-	static const Contract& request_info(string symbol);
-	double get_last_price();
-}
 
 class TradeBook {
 private:
@@ -76,4 +63,4 @@ public:
 
 };
 
-#endif // TRADEBOOK_H
+#endif // TRADEBOOK_HPP

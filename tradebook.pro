@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,9 +22,11 @@ SOURCES += src/main.cpp\
 	       src/gui.cpp\
 	       src/trade.cpp\
 	       src/database.cpp\
-	       src/tradebook.cpp
+	       src/tradebook.cpp\
+		   src/contract.cpp
 
 HEADERS  += src/gui.hpp\
 			src/trade.hpp\
 			src/database.hpp\
-			src/tradebook.hpp
+			src/tradebook.hpp\
+			src/contract.hpp

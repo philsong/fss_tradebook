@@ -48,15 +48,17 @@ private:
 	// GUI Elements
     QPushButton * submitButton;
 
-    // ==
+    // == Menu
     QMenu * fileMenu;
-    QAction * downloadAct;
+    QAction * downloadAllAct;
     QAction * downloadAggregateAct;
+    QAction * downloadPLAct;
+    QAction * downloadDetailedPLAct;
 
     QMenu * settingsMenu;
     // ==
 
-    // ==
+    // == New Order Form
     QLabel * symbolLabel;
     QComboBox * symbolEdit;
 
@@ -81,12 +83,9 @@ private:
 
     QLabel * expLabel;
     QDateEdit * expDate;
-
-    QLabel * transactionLabel;
-    QDateTimeEdit * transactionDateTime;
     // ==
 
-    // ==
+    // == Selected Contract Info
     QLabel * selectedTitleLabel;
     QLabel * selectedNameLabel;
     QLabel * selectedPriceLabel;

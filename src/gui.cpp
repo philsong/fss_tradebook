@@ -17,13 +17,17 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 
     // *** MENU BAR ***
 	// Create and configure file menu
-	fileMenu = menuBar()->addMenu(tr("&File"));
-	downloadAct = new QAction(tr("Download &all trades"), this);
-	downloadAggregateAct = new QAction(tr("Download &aggregate positions"), this);
-	fileMenu->addAction(downloadAct);
+	fileMenu = menuBar()->addMenu(tr("&Reports"));
+	downloadAllAct = new QAction(tr("&All trades"), this);
+	downloadAggregateAct = new QAction(tr("&Aggregate positions"), this);
+    downloadPLAct = new QAction(tr("&Profit and Loss"), this);
+    downloadDetailedPLAct = new QAction("Detailed Profit and Loss", this);
+	fileMenu->addAction(downloadAllAct);
 	fileMenu->addAction(downloadAggregateAct);
+    fileMenu->addAction(downloadPLAct);
+    fileMenu->addAction(downloadDetailedPLAct);
     // Connect download actions
-	connect(downloadAct, SIGNAL(triggered()), this, SLOT (slotDownload()));
+	connect(downloadAllAct, SIGNAL(triggered()), this, SLOT (slotDownload()));
 	connect(downloadAggregateAct, SIGNAL(triggered()), this, SLOT (slotAggregateDownload()));
 
     // Create and configure settings menu
@@ -88,15 +92,9 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	expLabel = new QLabel("Contract expiry: ", this);
 	expLabel->setGeometry(10, 390, 460, 40);
 	expDate = new QDateEdit(this);
+    expDate->setDate(QDate::currentDate());
 	expDate->setGeometry(10, 440, 460, 40);
-	expDate->setDisplayFormat("MM - yyyy");
-
-	// // Transaction time and date
-	// transactionLabel = new QLabel("Transaction time: ", this);
-	// transactionLabel->setGeometry(10, 490, 460, 40);
-	// transactionDateTime = new QDateTimeEdit(this);
-	// transactionDateTime->setGeometry(10, 540, 460, 40);
-	// transactionDateTime->setDisplayFormat("MM/dd/yyyy HH:mm:ss");
+	expDate->setDisplayFormat("M/yyyy");
     // *** END NEW ORDER FORM *** ==============================================
 
     // *** CURRENT SYMBOL DISPLAY *** ==========================================
@@ -108,8 +106,6 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
     selectedNameLabel->setGeometry(520, 90, 460, 40);
     selectedPriceLabel = new QLabel("Price: N/A", this);
     selectedPriceLabel->setGeometry(520, 140, 460, 40);
-
-    // nameLabel = new QLabel(contract.get_name().c_str(), this);
     // *** END CURRENT SYMBOL DISPLAY *** ======================================
 
 
@@ -122,8 +118,8 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 }
 
 GUI::~GUI() {
-	delete downloadAct;
 	delete downloadAggregateAct;
+	delete downloadAllAct;
 	delete fileMenu;
 	delete priceEdit;
 	delete priceLabel;
@@ -134,12 +130,12 @@ GUI::~GUI() {
 	delete symbolLabel;
 	delete traderEdit;
 	delete traderLabel;
-	// delete transactionDateTime;
-	// delete transactionLabel;
-    delete selectedTitleLabel;
-    delete settingsMenu;
+    delete downloadDetailedPLAct;
+    delete downloadPLAct;
     delete selectedNameLabel;
     delete selectedPriceLabel;
+    delete selectedTitleLabel;
+    delete settingsMenu;
 }
 
 void GUI::slotSubmission() {
@@ -149,7 +145,7 @@ void GUI::slotSubmission() {
 	string qty_string = qtyEdit->text().toStdString();
 	string trader = traderEdit->text().toStdString();
 	string expiry = expDate->date().toString().toStdString();
-	string datetime = transactionDateTime->dateTime().toString().toStdString();
+	string datetime = QDateTime::currentDateTime().toString().toStdString();
 
 	cout << "Expiry: " << expiry << "\n Datetime: " << datetime << "\n";
 
@@ -188,9 +184,6 @@ void GUI::slotAggregateDownload() {
 }
 
 void GUI::slotHandleSymbolChange(const QString& text) {
-    // contract display = Contract::request_info(text);
-    // // update display in right panel
-    // struct symbol_info symbol = tb->find_by_quandl(text.toStdString());
     auto selectedContract = book->get_contract(text.toStdString());
     cout << selectedContract.toString();
     string nameString = "Name: ";

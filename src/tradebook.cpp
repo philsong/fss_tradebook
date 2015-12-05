@@ -9,7 +9,9 @@ TradeBook::TradeBook(string db_name, int db_port, string symbols_file) : db {db_
 	parse_symbol_list(symbols_file);
 }
 
-TradeBook::~TradeBook() {}
+TradeBook::~TradeBook() {
+	
+}
 
 void TradeBook::parse_symbol_list(string symbols_file) {
 	// open file for reading

@@ -7,14 +7,13 @@ CREATE TABLE Traders(
 
 CREATE TABLE Trade(
 	id int,
+	trader_id text,
 	symbol text,
 	expiry_date date,
 	qt_lots int,
-	price number, -- check precision of number
-	tid int, -- trader id
-	trade_time timestamp,
+	price number,
+	trade_time text,
 	PRIMARY KEY(id),
-	FOREIGN KEY(tid) REFERENCES Traders(id)
 );
 
 -- option 1: trade type in trade table, secondary table for limit_order keeps
@@ -25,7 +24,7 @@ CREATE TABLE market_order(
 	symbol text,
 	expiry_month int,
 	expiry_year int,
-	trader_id int FOREIGN KEY REFERENCES Traders(id),
+	trader_id text,
 	transaction_time timestamp,
 	action -- buy / sell
 );
@@ -35,7 +34,7 @@ CREATE TABLE limit_order(
 	symbol text,
 	expiry_month int,
 	expiry_year int,
-	trader_id int FOREIGN KEY REFERENCES Traders(id),
+	trader_id text,
 	transaction_time timestamp,
 	action -- buy / sell
 );
@@ -45,7 +44,7 @@ CREATE TABLE pegged_order(
 	symbol text,
 	expiry_month int,
 	expiry_year int,
-	trader_id int FOREIGN KEY REFERENCES Traders(id),
+	trader_id text,
 	transaction_time timestamp,
 	action -- buy / sell
 );

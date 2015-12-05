@@ -27,7 +27,7 @@ string exec_result(string command) {
 }
 
 Contract::Contract(string s, string n, string e, double p) :
-    symbol {s}, name {n}, exchange {e}, lastPrice {p} {}
+    symbol {s}, name {n}, exchange {e}, lastPrice {p} { }
 
 void Contract::request_info(string quandl_code) {
     cout << "Requesting using curl: \n";
@@ -42,4 +42,20 @@ void Contract::request_info(string quandl_code) {
     // Name from lookup in symbols? maybe pass all this stuff along?
 
     // Construct contract object
+}
+
+string Contract::toString() {
+    return
+    "Name: " + name + '\n' +
+    "Symbol: " + symbol + '\n' +
+    "Exchange: " + exchange + '\n' +
+    "Last Price: " + to_string(lastPrice) + '\n';
+}
+
+string Contract::get_name() {
+    return name;
+}
+
+double Contract::get_last_price() {
+    return lastPrice;
 }

@@ -102,8 +102,13 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
     // *** CURRENT SYMBOL DISPLAY *** ==========================================
     // Contract contract = request_info("CME/CLH2015");
 
-    currentTitleLabel = new QLabel("Selected Contract", this);
-    currentTitleLabel->setGeometry(520, 40, 460, 40);
+    selectedTitleLabel = new QLabel("Selected Contract:", this);
+    selectedTitleLabel->setGeometry(520, 40, 460, 40);
+    selectedNameLabel = new QLabel("Name: N/A", this);
+    selectedNameLabel->setGeometry(520, 90, 460, 40);
+    selectedPriceLabel = new QLabel("Price: N/A", this);
+    selectedPriceLabel->setGeometry(520, 140, 460, 40);
+
     // nameLabel = new QLabel(contract.get_name().c_str(), this);
     // *** END CURRENT SYMBOL DISPLAY *** ======================================
 
@@ -131,8 +136,10 @@ GUI::~GUI() {
 	delete traderLabel;
 	// delete transactionDateTime;
 	// delete transactionLabel;
-    delete currentTitleLabel;
+    delete selectedTitleLabel;
     delete settingsMenu;
+    delete selectedNameLabel;
+    delete selectedPriceLabel;
 }
 
 void GUI::slotSubmission() {
@@ -185,4 +192,11 @@ void GUI::slotHandleSymbolChange(const QString& text) {
     // // update display in right panel
     // struct symbol_info symbol = tb->find_by_quandl(text.toStdString());
     auto selectedContract = book->get_contract(text.toStdString());
+    cout << selectedContract.toString();
+    string nameString = "Name: ";
+    nameString += selectedContract.get_name();
+    selectedNameLabel->setText(nameString.c_str());
+    string priceString = "Latest Price: ";
+    priceString += to_string(selectedContract.get_last_price());
+    selectedPriceLabel->setText(priceString.c_str());
 }

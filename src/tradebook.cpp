@@ -25,6 +25,8 @@ void TradeBook::parse_symbol_list(string symbols_file) {
 			for (int csv_field = 0; getline(lineStream, inputToken, ','); csv_field++) {
 				switch(csv_field) {
 					case 0: // SYMBOL
+						// cout << "Case 0:\n"
+						// 	 << "inputToken: " << inputToken << '\n';
 						record.symbol = inputToken;
 						break;
 					case 1: // EXCHANGE
@@ -37,7 +39,7 @@ void TradeBook::parse_symbol_list(string symbols_file) {
 						record.months = inputToken;
 						break;
 					case 4:
-						symbolMap[inputToken] = record;
+						symbolMap.emplace(inputToken, record);
 						break;
 				}
 			}
@@ -54,7 +56,9 @@ const vector<struct symbol_info>& TradeBook::get_futures() {
 const list<string> TradeBook::get_symbols() {
 	list<string> result;
 	for (auto& s : symbols) {
-		result.push_back(s.symbol + '/' + s.exchange);
+		// Hardcoding CME into quandl_code as we only have CME data so far
+		result.push_back("CME/" + s.symbol);
+		// result.push_back(s.exchange + '/' + s.symbol);
 	}
 
 	return result;
@@ -63,7 +67,8 @@ const list<string> TradeBook::get_symbols() {
 const Contract TradeBook::get_contract(string quandl_code) {
 	double lastPrice = 41.15;
 	auto data = symbolMap[quandl_code];
-	Contract result {data.symbol, data.name, data.exchange, lastPrice};
+	cout << "symbolMap[" << quandl_code << "].name: " << symbolMap[quandl_code].name << '\n';
+	Contract result(data.symbol, data.name, data.exchange, lastPrice);
 	return result;
 }
 

@@ -18,6 +18,7 @@ public:
 	static void request_info(string quandl_code);
     string get_name();
 	double get_last_price();
+    string toString();
 };
 
 #endif // CONTRACT_HPP

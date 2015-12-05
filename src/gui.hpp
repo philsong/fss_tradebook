@@ -87,7 +87,9 @@ private:
     // ==
 
     // ==
-    QLabel * currentTitleLabel;
+    QLabel * selectedTitleLabel;
+    QLabel * selectedNameLabel;
+    QLabel * selectedPriceLabel;
     // ==
 
     /// Link to TradeBook instance associated with GUI

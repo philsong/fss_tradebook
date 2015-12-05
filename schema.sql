@@ -1,54 +1,37 @@
-CREATE TABLE Traders(
-	id int,
-	uname text,
-	name text,
-	PRIMARY KEY(id)
-);
-
 CREATE TABLE Trade(
-	id int,
+	trade_id serial,
 	trader_id text,
 	symbol text,
 	expiry_date date,
 	qt_lots int,
-	price number,
+	price decimal,
 	trade_time text,
-	PRIMARY KEY(id),
+	PRIMARY KEY(trade_id)
 );
 
--- option 1: trade type in trade table, secondary table for limit_order keeps
--- track of limit for a certain order_id
-
-CREATE TABLE market_order(
-	order_id serial PRIMARY KEY,
+CREATE TABLE Order_(
+	order_id serial,
 	symbol text,
 	expiry_month int,
 	expiry_year int,
 	trader_id text,
-	transaction_time timestamp,
-	action -- buy / sell
+	transaction_dt text,
+	action boolean,
+	order_type int, -- 0: market, 1: limit, 2: pegged
+	PRIMARY KEY(order_id)
 );
 
-CREATE TABLE limit_order(
-	order_id serial PRIMARY KEY,
-	symbol text,
-	expiry_month int,
-	expiry_year int,
-	trader_id text,
-	transaction_time timestamp,
-	action -- buy / sell
+CREATE TABLE Order_limit(
+	order_id int,
+	price_limit decimal,
+    FOREIGN KEY(order_id) REFERENCES Order_(order_id)
 );
 
-CREATE TABLE pegged_order(
-	order_id serial PRIMARY KEY,
-	symbol text,
-	expiry_month int,
-	expiry_year int,
-	trader_id text,
-	transaction_time timestamp,
-	action -- buy / sell
-);
-
-CREATE TABLE Fills(
-
+CREATE TABLE Fill(
+	fill_id serial,
+	order_id int,
+	transaction_dt text,
+	price decimal,
+	PRIMARY KEY(fill_id),
+	FOREIGN KEY(order_id) REFERENCES Order_(order_id)
 );

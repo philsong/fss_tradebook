@@ -28,6 +28,7 @@
 #include <memory>
 
 #include "tradebook.hpp"
+#include "contract.hpp"
 
 class GUI : public QMainWindow {
     Q_OBJECT
@@ -40,17 +41,22 @@ private slots:
     /// Qt Slot for downloading aggregate positions.
     void slotAggregateDownload();
 
+    void slotHandleSymbolChange(const QString& text);
+
 private:
 
 	// GUI Elements
     QPushButton * submitButton;
 
+    // ==
     QMenu * fileMenu;
     QAction * downloadAct;
     QAction * downloadAggregateAct;
 
     QMenu * settingsMenu;
+    // ==
 
+    // ==
     QLabel * symbolLabel;
     QComboBox * symbolEdit;
 
@@ -78,6 +84,11 @@ private:
 
     QLabel * transactionLabel;
     QDateTimeEdit * transactionDateTime;
+    // ==
+
+    // ==
+    QLabel * currentTitleLabel;
+    // ==
 
     /// Link to TradeBook instance associated with GUI
     TradeBook* book;

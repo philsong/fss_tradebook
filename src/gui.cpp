@@ -8,7 +8,7 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
     book = tb;
 
     // Get list of symbols from Tradebook
-    for (auto& s : tb->get_symbols())
+    for (auto& s : book->get_symbols())
         symbols.append(s.c_str());
 
     // Set size and title of window
@@ -31,31 +31,33 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
     // importAct = new QAction(tr("Import settings from file..."), this);
 
 
-    // *** NEW ORDER FORM ***
+    // *** NEW ORDER FORM *** ==================================================
 	// Symbol Field
 	symbolLabel = new QLabel("Symbol: ", this);
 	symbolLabel->setGeometry(10, 40, 150, 40);
 	symbolEdit = new QComboBox(this);
 	symbolEdit->addItems(symbols);
-	symbolEdit->setGeometry(170, 40, 410, 40);
+	symbolEdit->setGeometry(170, 40, 310, 40);
+    // Connect change in symbolEdit to displaying a current contract
+    connect(symbolEdit, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(slotHandleSymbolChange(const QString&)));
 
 	// Price Field
 	priceLabel = new QLabel("Price: ", this);
 	priceLabel->setGeometry(10, 90, 150, 40);
 	priceEdit = new QLineEdit(this);
-	priceEdit->setGeometry(170, 90, 410, 40);
+	priceEdit->setGeometry(170, 90, 310, 40);
 
 	// Qty Field
 	qtyLabel = new QLabel("Quantity: ", this);
 	qtyLabel->setGeometry(10, 140, 150, 40);
 	qtyEdit = new QLineEdit(this);
-	qtyEdit->setGeometry(170, 140, 410, 40);
+	qtyEdit->setGeometry(170, 140, 310, 40);
 
 	// Trader Field
 	traderLabel = new QLabel("Trader id: ", this);
 	traderLabel->setGeometry(10, 190, 150, 40);
 	traderEdit = new QLineEdit(this);
-	traderEdit->setGeometry(170, 190, 410, 40);
+	traderEdit->setGeometry(170, 190, 310, 40);
 
 	// Create and position buy / sell buttons
 	buyButton = new QRadioButton("Buy", this);
@@ -73,27 +75,38 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	tradeTypes.append("Limit");
 	tradeTypes.append("Pegged");
 	tradeTypeEdit->addItems(tradeTypes);
-	tradeTypeEdit->setGeometry(170, 290, 410, 40);
+	tradeTypeEdit->setGeometry(170, 290, 310, 40);
 
 	// Limit for limit orders
-	limitLabel = new QLabel("Price Limit", this);
+	limitLabel = new QLabel("Price Limit: ", this);
 	limitLabel->setGeometry(10, 340, 150, 40);
 	limitEdit = new QLineEdit(this);
-	limitEdit->setGeometry(170, 340, 410, 40);
+	limitEdit->setGeometry(170, 340, 310, 40);
+    limitEdit->setDisabled(true);
 
 	// Expiration date field
 	expLabel = new QLabel("Contract expiry: ", this);
-	expLabel->setGeometry(10, 390, 580, 40);
+	expLabel->setGeometry(10, 390, 460, 40);
 	expDate = new QDateEdit(this);
-	expDate->setGeometry(10, 440, 580, 40);
-	expDate->setDisplayFormat("MM/dd/yyyy");
+	expDate->setGeometry(10, 440, 460, 40);
+	expDate->setDisplayFormat("MM - yyyy");
 
-	// Transaction time and date
-	transactionLabel = new QLabel("Transaction time: ", this);
-	transactionLabel->setGeometry(10, 490, 580, 40);
-	transactionDateTime = new QDateTimeEdit(this);
-	transactionDateTime->setGeometry(10, 540, 580, 40);
-	transactionDateTime->setDisplayFormat("MM/dd/yyyy HH:mm:ss");
+	// // Transaction time and date
+	// transactionLabel = new QLabel("Transaction time: ", this);
+	// transactionLabel->setGeometry(10, 490, 460, 40);
+	// transactionDateTime = new QDateTimeEdit(this);
+	// transactionDateTime->setGeometry(10, 540, 460, 40);
+	// transactionDateTime->setDisplayFormat("MM/dd/yyyy HH:mm:ss");
+    // *** END NEW ORDER FORM *** ==============================================
+
+    // *** CURRENT SYMBOL DISPLAY *** ==========================================
+    // Contract contract = request_info("CME/CLH2015");
+
+    currentTitleLabel = new QLabel("Selected Contract", this);
+    currentTitleLabel->setGeometry(520, 40, 460, 40);
+    // nameLabel = new QLabel(contract.get_name().c_str(), this);
+    // *** END CURRENT SYMBOL DISPLAY *** ======================================
+
 
 	// Create and position submit button
 	submitButton = new QPushButton("Submit", this);
@@ -116,8 +129,10 @@ GUI::~GUI() {
 	delete symbolLabel;
 	delete traderEdit;
 	delete traderLabel;
-	delete transactionDateTime;
-	delete transactionLabel;
+	// delete transactionDateTime;
+	// delete transactionLabel;
+    delete currentTitleLabel;
+    delete settingsMenu;
 }
 
 void GUI::slotSubmission() {
@@ -163,4 +178,11 @@ void GUI::slotAggregateDownload() {
 		tr("Download Aggregate Positions"), "", tr("CSV File (*.csv)")).toStdString();
 
 	book->download_aggregate_csv(save_file);
+}
+
+void GUI::slotHandleSymbolChange(const QString& text) {
+    // contract display = Contract::request_info(text);
+    // // update display in right panel
+    // struct symbol_info symbol = tb->find_by_quandl(text.toStdString());
+    auto selectedContract = book->get_contract(text.toStdString());
 }

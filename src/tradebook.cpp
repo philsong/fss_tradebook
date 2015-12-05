@@ -24,17 +24,20 @@ void TradeBook::parse_symbol_list(string symbols_file) {
 			struct symbol_info record;
 			for (int csv_field = 0; getline(lineStream, inputToken, ','); csv_field++) {
 				switch(csv_field) {
-					case 0:
+					case 0: // SYMBOL
 						record.symbol = inputToken;
 						break;
-					case 1:
+					case 1: // EXCHANGE
 						record.exchange = inputToken;
 						break;
-					case 2:
+					case 2: // CONTRACT NAME
 						record.name = inputToken;
 						break;
-					case 3:
+					case 3: // MONTHS AVAILABLE
 						record.months = inputToken;
+						break;
+					case 4:
+						symbolMap[inputToken] = record;
 						break;
 				}
 			}
@@ -54,6 +57,13 @@ const list<string> TradeBook::get_symbols() {
 		result.push_back(s.symbol + '/' + s.exchange);
 	}
 
+	return result;
+}
+
+const Contract TradeBook::get_contract(string quandl_code) {
+	double lastPrice = 41.15;
+	auto data = symbolMap[quandl_code];
+	Contract result {data.symbol, data.name, data.exchange, lastPrice};
 	return result;
 }
 

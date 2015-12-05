@@ -13,8 +13,10 @@
 
 #include <string>
 #include <list>
+#include <unordered_map>
 #include "database.hpp"
 #include "trade.hpp"
+#include "contract.hpp"
 
 using namespace std;
 
@@ -35,6 +37,7 @@ private:
 
 	// List of available symbols
 	vector<struct symbol_info> symbols;
+	unordered_map<string, struct symbol_info> symbolMap;
 
 	void parse_symbol_list(string symbols_file);
 
@@ -60,6 +63,7 @@ public:
 
 	const list<string> get_symbols();
 	const vector<struct symbol_info>& get_futures();
+	const Contract get_contract(string quandl_code);
 
 };
 

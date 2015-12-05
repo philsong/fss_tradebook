@@ -26,7 +26,20 @@ string exec_result(string command) {
     return result;
 }
 
+Contract::Contract(string s, string n, string e, double p) :
+    symbol {s}, name {n}, exchange {e}, lastPrice {p} {}
+
 void Contract::request_info(string quandl_code) {
-    cout << "Requesting using curl: \n"
-         << exec_result("curl -L http://www.quandl.com/api/v3/datasets/CME/CLH2015") << '\n';
+    cout << "Requesting using curl: \n";
+        //  << exec_result("curl -L http://www.quandl.com/api/v3/datasets/MGEX/MWH2012.csv") << '\n';
+
+    // Read in result csv file
+
+    // 2nd Line field index 4 has last Price
+
+    // Exchange and symbol from quandl code
+
+    // Name from lookup in symbols? maybe pass all this stuff along?
+
+    // Construct contract object
 }

@@ -2,15 +2,10 @@
 #define CONTRACT_HPP
 
 #include <string>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QEventLoop>
 
 using namespace std;
 
-class Contract : public QObject {
-    Q_OBJECT
+class Contract{
 private:
 	string symbol;
 	string name;
@@ -18,10 +13,11 @@ private:
 	double lastPrice;
 
 public:
-	// Contract(string symbol_, string name_, string exchange_, double price);
+	Contract(string s, string n, string e, double p);
 	// ~Contract();
 	static void request_info(string quandl_code);
-	// double get_last_price();
+    string get_name();
+	double get_last_price();
 };
 
 #endif // CONTRACT_HPP

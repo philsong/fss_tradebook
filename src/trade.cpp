@@ -6,16 +6,25 @@
 
 using namespace std;
 
-Order::Order(string _symbol, int _quantity, double _price, bool _buy,
-		     string _expiration_date, string _transaction_dt, string _trader) :
-	buy {_buy},
-	price {_price},
-	quantity {_quantity},
-	expiration_date {_expiration_date},
-	symbol {_symbol},
-	trader_id {_trader},
-	transaction_datetime {_transaction_dt} {
+// Order::Order(string _symbol, int _quantity, double _price, bool _buy,
+// 		     string _expiration_date, string _transaction_dt, string _trader) :
+// 	buy {_buy},
+// 	price {_price},
+// 	quantity {_quantity},
+// 	expiration_date {_expiration_date},
+// 	symbol {_symbol},
+// 	trader_id {_trader},
+// 	transaction_datetime {_transaction_dt} {
+// }
+
+Order::Order(string s, int q, bool b, string exp, string trader) :
+buy {b},
+quantity {q},
+expiration_date {exp},
+symbol {s},
+trader_id {trader} {
 }
+
 
 Order::~Order() {}
 
@@ -39,7 +48,7 @@ string Order::toCSV() {
 	ostringstream csv;
 	csv << symbol << ", "
 		<< quantity << ", "
-		<< price << ", "
+		// << price << ", "
 		<< (buy ? "BUY, " : "SELL, ")
 		<< expiration_date << ", "
 		<< transaction_datetime << ", "
@@ -91,7 +100,7 @@ void Aggregate::account_trade(vector<Aggregate>& v, string _symbol, string _trad
 	v.push_back(Aggregate(_symbol, _trader, _qty, _buy));
 }
 
-LimitOrder::LimitOrder(string s, int q, double p, bool b, string exp, string t) :
+LimitOrder::LimitOrder(string s, int q, double p, bool b, string exp, string trader) :
 Order(s, q, b, exp, trader), limit_price {p} {
 }
 

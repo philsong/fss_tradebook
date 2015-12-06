@@ -35,8 +35,9 @@ private:
   /// The FIX Client object which interacts with an exchange
   // FixClient fc;
 
-	// List of available symbols
+	/// List of available symbols
 	vector<struct symbol_info> symbols;
+	/// Map with more info than symbols
 	unordered_map<string, struct symbol_info> symbolMap;
 
 	void parse_symbol_list(string symbols_file);

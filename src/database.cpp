@@ -70,10 +70,10 @@ vector<Order> Database::get_all() {
 		Order temp(
 			trade[0].as<string>(), //Symbol
 			trade[1].as<int>(), //Qty
-			trade[2].as<double>(), //Price
+			// trade[2].as<double>(), //Price
 			trade[3].as<bool>(), //Buy
 			trade[4].as<string>(), //Expiry
-			trade[5].as<string>(), //DateTime
+			// trade[5].as<string>(), //DateTime
 			trade[6].as<string>() //Trader
 		);
 		trades.push_back(temp);

@@ -12,8 +12,7 @@ CREATE TABLE Trade(
 CREATE TABLE Order_(
 	order_id serial,
 	symbol text,
-	expiry_month int,
-	expiry_year int,
+	expiry_date text,
 	action boolean,
 	trader_id text,
 	transaction_dt text,

@@ -18,9 +18,9 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
     // *** MENU BAR ***
 	// Create and configure file menu
 	fileMenu = menuBar()->addMenu(tr("&Reports"));
-	downloadAllAct = new QAction(tr("&All trades"), this);
-	downloadAggregateAct = new QAction(tr("&Aggregate positions"), this);
-    downloadPLAct = new QAction(tr("&Profit and Loss"), this);
+	downloadAllAct = new QAction(tr("All trades"), this);
+	downloadAggregateAct = new QAction(tr("Aggregate positions"), this);
+    downloadPLAct = new QAction(tr("Profit and Loss"), this);
     downloadDetailedPLAct = new QAction("Detailed Profit and Loss", this);
 	fileMenu->addAction(downloadAllAct);
 	fileMenu->addAction(downloadAggregateAct);
@@ -44,12 +44,6 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	symbolEdit->setGeometry(170, 40, 310, 40);
     // Connect change in symbolEdit to displaying a current contract
     connect(symbolEdit, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(slotHandleSymbolChange(const QString&)));
-
-	// Price Field
-	priceLabel = new QLabel("Price: ", this);
-	priceLabel->setGeometry(10, 90, 150, 40);
-	priceEdit = new QLineEdit(this);
-	priceEdit->setGeometry(170, 90, 310, 40);
 
 	// Qty Field
 	qtyLabel = new QLabel("Quantity: ", this);
@@ -98,8 +92,6 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
     // *** END NEW ORDER FORM *** ==============================================
 
     // *** CURRENT SYMBOL DISPLAY *** ==========================================
-    // Contract contract = request_info("CME/CLH2015");
-
     selectedTitleLabel = new QLabel("Selected Contract:", this);
     selectedTitleLabel->setGeometry(520, 40, 460, 40);
     selectedNameLabel = new QLabel("Name: N/A", this);
@@ -121,8 +113,6 @@ GUI::~GUI() {
 	delete downloadAggregateAct;
 	delete downloadAllAct;
 	delete fileMenu;
-	delete priceEdit;
-	delete priceLabel;
 	delete qtyEdit;
 	delete qtyLabel;
 	delete submitButton;
@@ -161,7 +151,7 @@ void GUI::slotSubmission() {
 	try {
 		double price = stod(price_string);
 		int qty = stoi(qty_string);
-		Order tmp(symbol, qty, price, buy, expiry, datetime, trader);
+		Order tmp(symbol, qty, buy, expiry, trader);
 		book->record_trade(tmp);
 	} catch (const invalid_argument &ia) {
 		// emit invalid argument signal

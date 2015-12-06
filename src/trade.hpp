@@ -17,27 +17,22 @@ using namespace std;
 class Order {
 private:
 	bool buy; /// true if the trade is a buy, false if a sell
-	// double price; /// price of the commodity future at the time of purchase
 	int quantity; /// # of shares bought
 	string expiration_date; /// expiration date of the future
 	string symbol; /// the symbol for the commodity being traded
 	string trader_id; /// a unique ID for a trader
 	string transaction_datetime; /// the time and date when the trade is executed
-
+	int order_type = 0; /// Market 0 - Limit 1 - Pegged 2
 public:
    /**
     * Constructor
     * Constructs a Order object
-    * \param _symbol Contract symbol (eg HH, HP, G4)
-    * \param _quantity # Lots
-    * \param _price Price per lot
-    * \param _buy Buy (true) or Sell (false) type of trade
-    * \param _expiration_date Contract expiry (eg Tue Dec 31 2019)
-    * \param _transaction_dt Date and Time of transaction. ( eg Tue Oct 13 21:26:00 2015 )
-    * \param _trader Trader who executed trade.
+    * \param s Contract symbol (eg HH, HP, G4)
+    * \param q # Lots
+    * \param b Buy (true) or Sell (false) type of trade
+    * \param exp Contract expiry (eg Dec 2019)
+    * \param trader Trader who executed trade.
     */
-	// Order(string _symbol, int _quantity, double _price, bool _buy,
-	// 	  string _expiration_date, string _transaction_dt, string _trader);
 	Order(string s, int q, bool b, string exp, string trader);
 	~Order();
 	/// Order data in SQL insert query format VALUES (field, ...)
@@ -48,9 +43,19 @@ public:
 
 class LimitOrder : public Order {
 private:
-	double limit_price;
+	double limit_price; /// Price at which the trade should be executed
 public:
-	LimitOrder(string s, int q, double p, bool b, string exp, string t);
+	/**
+	 * Constructor
+	 * Constructs a LimitOrder object
+	 * \param s Contract symbol (eg HH, HP, G4)
+	 * \param q # Lots
+	 * \param p Limit price
+	 * \param b Buy (true) or Sell (false) type of trade
+	 * \param exp Contract expiry (eg Dec 2019)
+	 * \param trader Trader who executed trade.
+	 */
+	LimitOrder(string s, int q, double p, bool b, string exp, string trader);
 	string toCSV();
 	string toSQL();
 };

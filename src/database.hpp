@@ -29,9 +29,15 @@ public:
 	* \param data a reference to the Order object entered.
 	*/
 	void insert(Order & data);
-
+	/**
+ 	* Insert a LimitOrder into the database
+ 	* \param data a reference to the Order object entered.
+ 	*/
 	void insert(LimitOrder & data);
-
+	/**
+ 	* Insert a PeggedOrder into the database
+ 	* \param data a reference to the Order object entered.
+ 	*/
 	void insert(PeggedOrder & data);
 
 	/// Get all trades in the trade table

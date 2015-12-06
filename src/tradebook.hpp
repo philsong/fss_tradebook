@@ -4,7 +4,7 @@
  * \brief Book of records system for trades
  *
  * This class defines the tradebook system. Connecting the database with
- the GUI, this class orchestrates Trade data insertion and downloads
+ the GUI, this class orchestrates Order data insertion and downloads
  as CSV files.
  */
 
@@ -46,10 +46,10 @@ public:
 	TradeBook(string db_name, int db_port, string symbols_file);
 	~TradeBook();
    /**
-    * Insert Trade into the Database db
-    * \param data Reference to Trade to be inserted
+    * Insert Order into the Database db
+    * \param data Reference to Order to be inserted
     */
-	void record_trade(Trade & data);
+	void record_trade(Order & data);
    /**
     * Download all trades as CSV
     * \param file_target Name of file to save output.

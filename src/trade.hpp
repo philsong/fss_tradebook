@@ -7,17 +7,17 @@
 using namespace std;
 
 /**
- * \class Trade
+ * \class Order
  *
- * \brief Trade data representation
+ * \brief Order data representation
  *
- * This class defines a trade of a future commodity as well as database and file 
+ * This class defines a trade of a future commodity as well as database and file
    operations formatting.
  */
-class Trade {
+class Order {
 private:
 	bool buy; /// true if the trade is a buy, false if a sell
-	double price; /// price of the commodity future at the time of purchase
+	// double price; /// price of the commodity future at the time of purchase
 	int quantity; /// # of shares bought
 	string expiration_date; /// expiration date of the future
 	string symbol; /// the symbol for the commodity being traded
@@ -27,7 +27,7 @@ private:
 public:
    /**
     * Constructor
-    * Constructs a Trade object
+    * Constructs a Order object
     * \param _symbol Contract symbol (eg HH, HP, G4)
     * \param _quantity # Lots
     * \param _price Price per lot
@@ -36,13 +36,30 @@ public:
     * \param _transaction_dt Date and Time of transaction. ( eg Tue Oct 13 21:26:00 2015 )
     * \param _trader Trader who executed trade.
     */
-	Trade(string _symbol, int _quantity, double _price, bool _buy, 
-		  string _expiration_date, string _transaction_dt, string _trader);
-	~Trade();
-	/// Trade data in SQL insert query format VALUES (field, ...)
+	// Order(string _symbol, int _quantity, double _price, bool _buy,
+	// 	  string _expiration_date, string _transaction_dt, string _trader);
+	Order(string s, int q, bool b, string exp, string trader);
+	~Order();
+	/// Order data in SQL insert query format VALUES (field, ...)
 	string toSQL();
-	/// Trade data in CSV line format
+	/// Order data in CSV line format
 	string toCSV();
+};
+
+class LimitOrder : public Order {
+private:
+	double limit_price;
+public:
+	LimitOrder(string s, int q, double p, bool b, string exp, string t);
+	string toCSV();
+	string toSQL();
+};
+
+class PeggedOrder : public Order {
+public:
+	PeggedOrder(string s, int q, bool b, string exp, string t);
+	string toCSV();
+	string toSQL();
 };
 
 /**
@@ -52,7 +69,7 @@ public:
  *
  * This class defines the aggregate position of a trader on a single commodity.
  It consists of an underlying collection of Positions, which include the number of
- lots in the trade and whether it is a buy or sell operation. 
+ lots in the trade and whether it is a buy or sell operation.
  */
 class Aggregate {
 private:

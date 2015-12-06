@@ -25,13 +25,17 @@ public:
 	~Database();
 
    /**
-	* Insert a Trade into the database
-	* \param data a reference to the Trade object entered.
+	* Insert a Order into the database
+	* \param data a reference to the Order object entered.
 	*/
-	void insert(Trade & data);
+	void insert(Order & data);
+
+	void insert(LimitOrder & data);
+
+	void insert(PeggedOrder & data);
 
 	/// Get all trades in the trade table
-	vector<Trade> get_all();
+	vector<Order> get_all();
 
    /**
     * Get all aggregate positions in the trade table

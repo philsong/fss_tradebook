@@ -34,9 +34,9 @@ class GUI : public QMainWindow {
     Q_OBJECT
 
 private slots:
-    /// Qt Slot for Trade submission.
+    /// Qt Slot for Order submission.
 	void slotSubmission();
-    /// Qt Slot for downloading all Trade data.
+    /// Qt Slot for downloading all Order data.
     void slotDownload();
     /// Qt Slot for downloading aggregate positions.
     void slotAggregateDownload();

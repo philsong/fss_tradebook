@@ -14,9 +14,9 @@ CREATE TABLE Order_(
 	symbol text,
 	expiry_month int,
 	expiry_year int,
+	action boolean,
 	trader_id text,
 	transaction_dt text,
-	action boolean,
 	order_type int, -- 0: market, 1: limit, 2: pegged
 	PRIMARY KEY(order_id)
 );

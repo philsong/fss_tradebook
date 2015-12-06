@@ -33,7 +33,7 @@ Database::~Database() {
 	delete db_connection;
 }
 
-void Database::insert(Trade & data) {
+void Database::insert(Order & data) {
 	// Format SQL insert query
 	ostringstream query_stream;
 	query_stream << "INSERT INTO "
@@ -54,7 +54,7 @@ void Database::insert(Trade & data) {
 	cout << "Record created.\n";
 }
 
-vector<Trade> Database::get_all() {
+vector<Order> Database::get_all() {
 	// Format SQL select query
 	string query("SELECT * FROM Trades;");
 
@@ -65,9 +65,9 @@ vector<Trade> Database::get_all() {
 	result db_trades(ntransaction.exec(query));
 
 
-	vector<Trade> trades {};
+	vector<Order> trades {};
 	for (auto trade = db_trades.begin(); trade != db_trades.end(); ++trade) {
-		Trade temp(
+		Order temp(
 			trade[0].as<string>(), //Symbol
 			trade[1].as<int>(), //Qty
 			trade[2].as<double>(), //Price

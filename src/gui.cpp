@@ -70,8 +70,8 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	sellButton = new QRadioButton("Sell", this);
 	sellButton->setGeometry(300, 240, 280, 40);
 
-	// Trade Type Field
-	tradeTypeLabel = new QLabel("Trade type: ", this);
+	// Order Type Field
+	tradeTypeLabel = new QLabel("Order type: ", this);
 	tradeTypeLabel->setGeometry(10, 290, 150, 40);
 	tradeTypeEdit = new QComboBox(this);
 	QStringList tradeTypes;
@@ -161,7 +161,7 @@ void GUI::slotSubmission() {
 	try {
 		double price = stod(price_string);
 		int qty = stoi(qty_string);
-		Trade tmp(symbol, qty, price, buy, expiry, datetime, trader);
+		Order tmp(symbol, qty, price, buy, expiry, datetime, trader);
 		book->record_trade(tmp);
 	} catch (const invalid_argument &ia) {
 		// emit invalid argument signal

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Trade::Trade(string _symbol, int _quantity, double _price, bool _buy,
+Order::Order(string _symbol, int _quantity, double _price, bool _buy,
 		     string _expiration_date, string _transaction_dt, string _trader) :
 	buy {_buy},
 	price {_price},
@@ -17,24 +17,25 @@ Trade::Trade(string _symbol, int _quantity, double _price, bool _buy,
 	transaction_datetime {_transaction_dt} {
 }
 
-Trade::~Trade() {}
+Order::~Order() {}
 
-string Trade::toSQL() {
+string Order::toSQL() {
 	ostringstream sql;
 	sql << "VALUES ("
 		<< "'" << symbol << "', "
 		<< quantity << ", "
-		<< price << ", "
+		// << price << ", "
 		<< (buy ? "'true', " : "'false', ")
+		<< "'" << trader_id << "', "
 		<< "'" << expiration_date << "', "
 		<< "'" << transaction_datetime << "', "
-		<< "'" << trader_id << "'"
+		<< order_type
 		<< ");";
 
 	return sql.str();
 }
 
-string Trade::toCSV() {
+string Order::toCSV() {
 	ostringstream csv;
 	csv << symbol << ", "
 		<< quantity << ", "
@@ -88,4 +89,12 @@ void Aggregate::account_trade(vector<Aggregate>& v, string _symbol, string _trad
 	}
 
 	v.push_back(Aggregate(_symbol, _trader, _qty, _buy));
+}
+
+LimitOrder::LimitOrder(string s, int q, double p, bool b, string exp, string t) :
+Order(s, q, b, exp, trader), limit_price {p} {
+}
+
+PeggedOrder::PeggedOrder(string s, int q, bool b, string exp, string trader) :
+Order(s, q, b, exp, trader) {
 }

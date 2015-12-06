@@ -74,12 +74,12 @@ const Contract TradeBook::get_contract(string quandl_code) {
 	return result;
 }
 
-void TradeBook::record_trade(Trade & data) {
+void TradeBook::record_trade(Order & data) {
 	db.insert(data);
 }
 
 void TradeBook::download_csv(string file_target) {
-	vector<Trade> trades = db.get_all();
+	vector<Order> trades = db.get_all();
 	ofstream ofs(file_target);
 	if (!ofs) {
 		cerr << "couldn't open " << file_target << " for writing.\n";

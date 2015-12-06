@@ -6,7 +6,7 @@ CREATE TABLE Traders(
 	PRIMARY KEY(id)
 );
 
-CREATE TABLE Trade(
+CREATE TABLE Order(
 	id int,
 	symbol text,
 	expiry_date date,

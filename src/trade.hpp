@@ -73,6 +73,7 @@ class InterestSwapOrder : public Order {
 private:
 	bool paysFixed;
 	double floatingSpread;
+	string clearingHouse;
 public:
 	InterestSwapOrder();
 	string toCSV();

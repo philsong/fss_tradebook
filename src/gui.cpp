@@ -22,9 +22,13 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	downloadAggregateAct = new QAction(tr("Aggregate positions"), this);
     downloadPLAct = new QAction(tr("Profit and Loss"), this);
     downloadDetailedPLAct = new QAction("Detailed Profit and Loss", this);
+    downloadSwapAggregateAct = new QAction(tr("Aggregate positions on Swaps"), this);
+    downloadSwapPLAct = new QAction("Profit and Loss on Swaps", this);
 	fileMenu->addAction(downloadAllAct);
 	fileMenu->addAction(downloadAggregateAct);
     fileMenu->addAction(downloadPLAct);
+    fileMenu->addAction(downloadSwapAggregateAct);
+    fileMenu->addAction(downloadSwapPLAct);
     fileMenu->addAction(downloadDetailedPLAct);
     // Connect download actions
 	connect(downloadAllAct, SIGNAL(triggered()), this, SLOT (slotDownload()));
@@ -44,6 +48,13 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	symbolEdit->setGeometry(170, 40, 310, 40);
     // Connect change in symbolEdit to displaying a current contract
     connect(symbolEdit, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(slotHandleSymbolChange(const QString&)));
+
+    // Amount Field
+	amtLabel = new QLabel("Amount(swap): ", this);
+	amtLabel->setGeometry(10, 90, 190, 40);
+	amtEdit = new QLineEdit(this);
+	amtEdit->setGeometry(210, 90, 270, 40);
+    amtEdit->setDisabled(true);
 
 	// Qty Field
 	qtyLabel = new QLabel("Quantity: ", this);
@@ -110,11 +121,14 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 }
 
 GUI::~GUI() {
-	delete downloadAggregateAct;
+    delete downloadAggregateAct;
+	delete downloadSwapAggregateAct;
 	delete downloadAllAct;
 	delete fileMenu;
 	delete qtyEdit;
 	delete qtyLabel;
+    delete amtEdit;
+    delete amtLabel;
 	delete submitButton;
 	delete symbolEdit;
 	delete symbolLabel;
@@ -122,6 +136,7 @@ GUI::~GUI() {
 	delete traderLabel;
     delete downloadDetailedPLAct;
     delete downloadPLAct;
+    delete downloadSwapPLAct;
     delete selectedNameLabel;
     delete selectedPriceLabel;
     delete selectedTitleLabel;

@@ -52,7 +52,9 @@ private:
     QMenu * fileMenu;
     QAction * downloadAllAct;
     QAction * downloadAggregateAct;
+    QAction * downloadSwapAggregateAct;
     QAction * downloadPLAct;
+    QAction * downloadSwapPLAct;
     QAction * downloadDetailedPLAct;
 
     QMenu * settingsMenu;
@@ -67,6 +69,9 @@ private:
 
     QLabel * qtyLabel;
     QLineEdit * qtyEdit;
+
+    QLabel * amtLabel;
+    QLineEdit * amtEdit;
 
     QLabel * traderLabel;
     QLineEdit * traderEdit; // ok

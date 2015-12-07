@@ -56,29 +56,30 @@ public:
 	 * \param trader Trader who executed trade.
 	 */
 	LimitOrder(string s, int q, double p, bool b, string exp, string trader);
-	string toCSV();
-	string toSQL();
+	string toCSV() = 0;
+	string toSQL() = 0;
 };
 
 class PeggedOrder : public Order {
 public:
 	PeggedOrder(string s, int q, bool b, string exp, string t);
-	string toCSV();
-	string toSQL();
+	string toCSV() = 0;
+	string toSQL() = 0;
 };
 
 class InterestSwapOrder : public Order {
 	// buy is irrelevant
 	// symbol is the floating rate used
+	// get libor from https://www.quandl.com/api/v3/datasets/FRED/USD1MTD156N.csv
 private:
 	bool paysFixed;
 	double floatingSpread;
 	string clearingHouse;
 public:
 	InterestSwapOrder();
-	string toCSV();
-	string toSQL();
-}
+	string toCSV() = 0;
+	string toSQL() = 0;
+};
 
 /**
  * \class Aggregate

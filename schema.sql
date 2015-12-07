@@ -39,18 +39,21 @@ CREATE TABLE Fill(
 CREATE TABLE SwapOrder(
 	swap_id serial,
 	amount decimal,
+	clearing_house text,
 	floating_rate decimal,
 	floating_spread decimal,
 	fixed_rate decimal,
 	start_date text,
 	expiry_date text,
 	pays_floating boolean,
+	transaction_dt text,
 	PRIMARY KEY(swap_id)
 )
 
 CREATE TABLE SwapFills(
 	fill_id serial,
 	swap_ip int,
+	transaction_dt text,
 	PRIMARY KEY(fill_id),
 	FOREIGN KEY(swap_id) REFERENCES SwapOrder(order_id)
 )

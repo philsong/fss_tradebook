@@ -29,8 +29,28 @@ CREATE TABLE Order_limit(
 CREATE TABLE Fill(
 	fill_id serial,
 	order_id int,
+	qt_lots int,
 	transaction_dt text,
 	price decimal,
 	PRIMARY KEY(fill_id),
 	FOREIGN KEY(order_id) REFERENCES Order_(order_id)
 );
+
+CREATE TABLE SwapOrder(
+	swap_id serial,
+	amount decimal,
+	floating_rate decimal,
+	floating_spread decimal,
+	fixed_rate decimal,
+	start_date text,
+	expiry_date text,
+	pays_floating boolean,
+	PRIMARY KEY(swap_id)
+)
+
+CREATE TABLE SwapFills(
+	fill_id serial,
+	swap_ip int,
+	PRIMARY KEY(fill_id),
+	FOREIGN KEY(swap_id) REFERENCES SwapOrder(order_id)
+)

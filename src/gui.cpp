@@ -69,11 +69,11 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	traderEdit->setGeometry(170, 190, 310, 40);
 
 	// Create and position buy / sell buttons
-	buyButton = new QRadioButton("Buy", this);
+	buyButton = new QRadioButton("Buy / Fixed(swap)", this);
 	buyButton->setGeometry(10, 240, 280, 40);
 	buyButton->setChecked(true);
-	sellButton = new QRadioButton("Sell", this);
-	sellButton->setGeometry(300, 240, 280, 40);
+	sellButton = new QRadioButton("Sell / Floating(swap)", this);
+	sellButton->setGeometry(300, 240, 300, 40);
 
 	// Order Type Field
 	tradeTypeLabel = new QLabel("Order type: ", this);
@@ -93,12 +93,28 @@ GUI::GUI(QWidget *parent, TradeBook * tb)
 	limitEdit->setGeometry(170, 340, 310, 40);
     limitEdit->setDisabled(true);
 
+    // Spread for swap orders
+    spreadLabel = new QLabel("Spread: ", this);
+    spreadLabel->setGeometry(10, 390, 150, 40);
+    spreadEdit = new QLineEdit(this);
+    spreadEdit->setGeometry(170, 390, 310, 40);
+    spreadEdit->setDisabled(true);
+
+    // Start date field
+	startLabel = new QLabel("Contract start (swap): ", this);
+	startLabel->setGeometry(10, 440, 460, 40);
+	startDate = new QDateEdit(this);
+    startDate->setDate(QDate::currentDate());
+	startDate->setGeometry(10, 490, 460, 40);
+	startDate->setDisplayFormat("M/yyyy");
+    startDate->setDisabled(true);
+
 	// Expiration date field
 	expLabel = new QLabel("Contract expiry: ", this);
-	expLabel->setGeometry(10, 390, 460, 40);
+	expLabel->setGeometry(10, 540, 460, 40);
 	expDate = new QDateEdit(this);
     expDate->setDate(QDate::currentDate());
-	expDate->setGeometry(10, 440, 460, 40);
+	expDate->setGeometry(10, 590, 460, 40);
 	expDate->setDisplayFormat("M/yyyy");
     // *** END NEW ORDER FORM *** ==============================================
 
@@ -124,6 +140,10 @@ GUI::~GUI() {
     delete downloadAggregateAct;
 	delete downloadSwapAggregateAct;
 	delete downloadAllAct;
+    delete startLabel;
+    delete startDate;
+    delete expLabel;
+    delete expDate;
 	delete fileMenu;
 	delete qtyEdit;
 	delete qtyLabel;
@@ -141,6 +161,10 @@ GUI::~GUI() {
     delete selectedPriceLabel;
     delete selectedTitleLabel;
     delete settingsMenu;
+    delete limitLabel;
+    delete limitEdit;
+    delete spreadLabel;
+    delete spreadEdit;
 }
 
 void GUI::slotSubmission() {

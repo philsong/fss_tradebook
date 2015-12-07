@@ -86,6 +86,12 @@ private:
     QLabel * limitLabel;
     QLineEdit * limitEdit;
 
+    // Floating spread for swap order
+    QLabel * spreadLabel;
+    QLineEdit * spreadEdit;
+
+    QLabel * startLabel;
+    QDateEdit * startDate;
     QLabel * expLabel;
     QDateEdit * expDate;
     // ==

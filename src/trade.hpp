@@ -22,7 +22,7 @@ private:
 	string symbol; /// the symbol for the commodity being traded
 	string trader_id; /// a unique ID for a trader
 	string transaction_datetime; /// the time and date when the trade is executed
-	int order_type = 0; /// Market 0 - Limit 1 - Pegged 2
+	int order_type = 0; /// Market 0 - Limit 1 - Pegged 2 - Interest 3
 public:
    /**
     * Constructor
@@ -36,14 +36,14 @@ public:
 	Order(string s, int q, bool b, string exp, string trader);
 	~Order();
 	/// Order data in SQL insert query format VALUES (field, ...)
-	string toSQL();
+	virtual string toSQL();
 	/// Order data in CSV line format
-	string toCSV();
+	virtual string toCSV();
 };
 
 class LimitOrder : public Order {
 private:
-	double limit_price; /// Price at which the trade should be executed
+	double limitPrice; /// Price at which the trade should be executed
 public:
 	/**
 	 * Constructor
@@ -66,6 +66,18 @@ public:
 	string toCSV();
 	string toSQL();
 };
+
+class InterestSwapOrder : public Order {
+	// buy is irrelevant
+	// symbol is the floating rate used
+private:
+	bool paysFixed;
+	double floatingSpread;
+public:
+	InterestSwapOrder();
+	string toCSV();
+	string toSQL();
+}
 
 /**
  * \class Aggregate

@@ -101,7 +101,7 @@ void Aggregate::account_trade(vector<Aggregate>& v, string _symbol, string _trad
 }
 
 LimitOrder::LimitOrder(string s, int q, double p, bool b, string exp, string trader) :
-Order(s, q, b, exp, trader), limit_price {p} {
+Order(s, q, b, exp, trader), limitPrice {p} {
 }
 
 PeggedOrder::PeggedOrder(string s, int q, bool b, string exp, string trader) :

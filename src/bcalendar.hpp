@@ -41,6 +41,14 @@ private:
         "12/25/2015",
         "12/26/2015"
     };
+
+    vector<date_t> endsOfMonths {
+        "1/31",
+        "2/28/2015",
+        "2/29/2016",
+        "3/31",
+        // etc
+    }
     /// Current date
     date_t today;
     /// Next business day (today if not a holiday)
@@ -48,7 +56,9 @@ private:
 public:
     BCalendar();
     ~BCalendar();
-    date_t get_business_day();
+    date_t get_next_business_day();
+    date_t get_prev_business_day();
+    date_t get_3prev_business_day();
 };
 
 #endif // BCALENDAR_HPP

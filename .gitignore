@@ -3,3 +3,8 @@ Makefile
 *.txt
 doc/html/*
 tradebook
+fixpy/.git/*
+fixpy/bin/*
+fixpy/include/*
+fixpy/lib/*
+fixpy/share/*

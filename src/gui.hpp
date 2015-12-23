@@ -40,6 +40,8 @@ private slots:
     void slotDownload();
     /// Qt Slot for downloading aggregate positions.
     void slotAggregateDownload();
+    /// Qt Slot exchange refused clearing.
+    void slotClearingRefused();
 
     void slotHandleSymbolChange(const QString& text);
 
